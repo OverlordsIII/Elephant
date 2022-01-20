@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+:root{
+    --dark-blue:#004153;
+    --blue:#335762;
+    --light-blue:#e0f4fe;
+}
+
+body{
+    margin:0;
+    font-family:'Outfit';
+    background:white;
+}
+
+#navbar{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    width:90vw;
+    margin:0 auto;
+    height:70px;
+    position:relative;
+}
+
+#navbar > img:first-of-type{
+    height:40px;
+    margin-right:10px;
+}
+
+#navbar-headers > h1:first-of-type{
+    font-size:25px;
+    margin:0;
+}
+
+#navbar-headers > p{
+    margin:-5px 0 0 0;
+    font-size:12px;
+    font-weight:300;
+}
+
+#navbar-buttons{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+}
+
+#navbar-buttons > button{
+    margin-left:15px;
+    border:none;
+    background:var(--blue);
+    color:var(--light-blue);
+    font-weight:700;
+    padding:5px 10px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+#navbar-right{
+    position:absolute;
+    right:0;
+}
+
+#profile {
+    background:#eee;
+    padding:5px 10px 5px 60px;
+    overflow:hidden;
+    border-radius:10px;
+    border:1px solid lightgray;
+}
+
+#profile > div > h1{
+    font-size:16px;
+    margin:0;
+}
+
+#profile > div > p{
+    font-size:12px;
+    margin:0;
+}
