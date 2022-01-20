@@ -62,10 +62,14 @@ body{
 
 #profile {
     background:#eee;
-    padding:5px 10px 5px 60px;
+    padding:5px 10px 5px 50px;
     overflow:hidden;
     border-radius:10px;
     border:1px solid lightgray;
+    position:relative;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
 }
 
 #profile > div > h1{
@@ -76,4 +80,11 @@ body{
 #profile > div > p{
     font-size:12px;
     margin:0;
+}
+
+#profile > img{
+    position:absolute;
+    left:10px;
+    height:30px;
+    border-radius:5px;
 }
