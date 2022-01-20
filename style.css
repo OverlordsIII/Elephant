@@ -98,6 +98,7 @@ body{
     left:10px;
     height:30px;
     border-radius:5px;
+    cursor:pointer;
 }
 
 #main-container{
@@ -219,7 +220,7 @@ body{
 }
 
 .math{
-    font-family: 'TeX Gyre Schola Math', serif;
+    font-family: "TeX Gyre Schola Math", serif;
     font-style:italic;
     font-weight:900;
 }
