@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('fonts/TexGyreMath/font-face.css');
+
+:root{
+    --dark-blue:#004153;
+    --blue:#335762;
+    --light-blue:#e0f4fe;
+}
+
+body{
+    margin:0;
+    font-family:'Outfit';
+    background:white;
+    display:flex;
+    flex-direction:row;
+    overflow:hidden;
+    font-size:12px;
+}
+
+#sidebar{
+    width:200px;
+    height:calc(100vh - 50px);
+    padding:25px;
+    background:var(--dark-blue);
+    border-right:1px solid lightgray;
+}
+
+#sidebar button:first-of-type{
+    width:200px;
+    height:25px;
+    font-size:1.25em;
+    transition-duration:250ms;
+    background:lightgray;
+    color:black;
+    border:none;
+    outline:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+#sidebar button:first-of-type:active{
+    box-shadow:inset 0 0 10px 0 black;
+}
+
+#parent-container{
+    display:flex;
+    flex-direction:column;
+}
+
+#navbar{
+    width:calc(100vw - 300px);
+    border-bottom:1px solid lightgray;
+    padding:0 25px;
+}
+
+#logo-div{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    height:70px;
+}
+
+#logo-div img:first-of-type{
+    height:40px;
+    margin-right:10px;
+}
+
+#logo-div div h1:first-of-type{
+    font-size:25px;
+    margin:0;
+}
+
+#logo-div div p{
+    margin:-5px 0 0 0;
+    font-size:12px;
+    font-weight:300;
+}
+
+#main-container{
+    background:white;
+    width:calc(100vw - 300px);
+    height:calc(100vh - 120px);
+    padding:25px;
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    align-items:flex-start;
+}
+
+#main-container > div{
+    overflow:hidden;
+    width:200px;
+    border-radius:25px;
+    border: 1px solid lightgray;
+}
+
+#main-container > div div:first-of-type{
+    background-image:url('https://pbs.twimg.com/profile_images/1250878895294988288/OrH0MiRP_400x400.jpg');
+    background-position:center;
+    background-size:cover;
+    width:200px;
+    height:125px;
+}
+
+#main-container > div div:last-of-type {
+    padding:25px 10px;
+    background:#eee;
+}
+
+#main-container > div div:last-of-type h1{
+    font-size:1.5em;
+    margin:0;
+}
+
+#main-container > div div:last-of-type p {
+    font-size:1em;
+    line-height:12px;
+    color:gray;
+    margin:0;
+    margin:10px 0;
+}
+
+#main-container > div div:last-of-type button{
+    font-size:1em;
+    width:180px;
+    height:25px;
+    margin-top:10px;
+    background:var(--blue);
+    transition-duration:250ms;
+    color:white;
+    border-radius:5px;
+    border:none;
+    cursor:pointer;
+}
+
+#main-container > div div:last-of-type button:active{
+    box-shadow:inset 0 0 10px 0 black;
+}
+
+.active-modal{
+    background:rgba(0, 0, 0, 0.25);
+    position:absolute;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    width:100vw;
+    height:100vh;
+}
+
+#create-modal > div{
+    width:calc(100vw - 100px);
+    height:calc(100vh - 100px);
+    border-radius:25px;
+    border:1px solid lightgray;
+    background:white;
+    overflow:hidden;
+}
+
+#create-sidebar {
+    background:#eee;
+    height:calc(100vw - 150px);
+    border-right:1px solid lightgray;
+    width:250px;
+    padding:25px;
+}
+
+#create-sidebar h1{
+    font-size:2em;
+    margin:0;
+}
+
+#create-sidebar p{
+    color:gray;
+    font-size:1em;
+    margin:0;
+}
