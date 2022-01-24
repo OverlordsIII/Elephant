@@ -5,6 +5,8 @@
     --dark-blue:#004153;
     --blue:#335762;
     --light-blue:#e0f4fe;
+    --green:#3dffae;
+    --red:#ff3d71;
 }
 
 body{
@@ -152,14 +154,15 @@ body{
     width:calc(100vw - 100px);
     height:calc(100vh - 100px);
     border-radius:25px;
-    border:1px solid lightgray;
     background:white;
     overflow:hidden;
+    display:flex;
+    flex-direction:row;
 }
 
 #create-sidebar {
     background:#eee;
-    height:calc(100vw - 150px);
+    height:calc(100vh - 150px);
     border-right:1px solid lightgray;
     width:250px;
     padding:25px;
@@ -170,8 +173,133 @@ body{
     margin:0;
 }
 
-#create-sidebar p{
+#create-sidebar p, #create-sidebar > ul{
     color:gray;
     font-size:1em;
+    line-height:12px;
+    margin:0 0 6px 0;
+}
+
+#card-information{
+    background:var(--dark-blue);
+    height:calc(100vh - 150px);
+    border-left:1px solid lightgray;
+    padding:25px;
+    width:250px;
+}
+
+#card-information h1{
+    font-size:2em;
+    color:white;
     margin:0;
+}
+
+#card-information input{
+    width:230px;
+    color:lightgray;
+    outline:none;
+    border:none;
+    margin:10px 0;
+    background:var(--blue);
+    font-size:1.25em;
+    padding:10px;
+    border-radius:5px;
+}
+
+#card-information textarea{
+    font-family: 'Source Sans Pro', sans-serif;
+    background:var(--blue);
+    border-radius:5px;
+    padding:10px;
+    outline:none;
+    color:lightgray;
+    resize:none;
+    border:none;
+    font-size:1em;
+    width:230px;
+}
+
+#save-card{
+    position:absolute;
+    bottom:100px;
+    right:75px;
+    width:250px;
+    outline:none;
+    border:none;
+    font-size:1em;
+    height:20px;
+    border-radius:5px;
+    cursor:pointer;
+    background:var(--green);
+    font-weight:500;
+}
+
+#cancel-card{
+    position:absolute;
+    bottom:75px;
+    right:75px;
+    width:250px;
+    outline:none;
+    border:none;
+    font-size:1em;
+    height:20px;
+    border-radius:5px;
+    cursor:pointer;
+    background:var(--red);
+    font-weight:500;
+}
+
+#main-create{
+    width:calc(100vw - 700px);
+    padding:50px 0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    overflow-y:scroll;
+}
+
+#main-create > *{
+    width:calc(100vw - 800px);
+    border:1px solid lightgray;
+    border-radius:10px;
+    margin-bottom:20px;
+    background:#eee;
+}
+
+#main-create > button{
+    height:200px;
+    color:gray;
+    cursor:pointer;
+    font-size:5em;
+    font-weight:100;
+}
+
+#main-create > div{
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+}
+
+#main-create > div > p{
+    width:calc(100vw - 850px);
+    background:var(--blue);
+    border-bottom:1px solid lightgray;
+    margin:0;
+    padding:5px 25px;
+    font-size:1.25em;
+    color:var(--light-blue);
+}
+
+#main-create > div > div{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+}
+
+#main-create > div > div> input{
+    width:calc(50vw - 375px);
+    background:transparent;
+    border:none;
+    outline:none;
+    padding:25px;
 }
