@@ -73,7 +73,11 @@ function saveChanges(){
     localStorage.setItem(title.value, newObject);
 
     document.getElementById('create-modal').classList.add('inactive-modal');
-    document.getElementById('create-modal').classList.remove('active-modal')
+    document.getElementById('create-modal').classList.remove('active-modal');
 }
 
-createNewCard();
+function createDeck(){
+    createNewCard();
+    document.getElementById('create-modal').classList.remove('inactive-modal');
+    document.getElementById('create-modal').classList.add('active-modal');
+}

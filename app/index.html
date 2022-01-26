@@ -12,7 +12,7 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div id="create-modal" class="active-modal">
+    <div id="create-modal" class="inactive-modal">
         <div>
             <div id="create-sidebar">
                 <h1>Create A New Deck</h1>
@@ -33,12 +33,12 @@
                 <textarea name="" cols="30" rows="10" placeholder="Description" id="create-deck-desc"></textarea>
                 <input type="text" placeholder="Deck Image" id="create-deck-img">
                 <button id="save-card" onclick="saveChanges()">Save Changes</button>
-                <button id="cancel-card">Cancel Changes</button>
+                <button id="cancel-card" onclick="document.getElementById('create-modal').classList.add('inactive-modal'); document.getElementById('create-modal').classList.remove('active-modal');">Cancel Changes</button>
             </div>
         </div>
     </div>
     <div id="sidebar">
-        <button>+ Create Deck</button>
+        <button onclick="createDeck()">+ Create Deck</button>
     </div>
     <div id="parent-container">
         <div id="navbar">
