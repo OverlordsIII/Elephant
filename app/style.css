@@ -150,6 +150,10 @@ body{
     height:100vh;
 }
 
+.inactive-modal{
+    display:none;
+}
+
 #create-modal > div{
     width:calc(100vw - 100px);
     height:calc(100vh - 100px);
