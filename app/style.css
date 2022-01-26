@@ -227,35 +227,38 @@ body{
     outline:none;
     border:none;
     font-size:1em;
-    height:20px;
+    height:25px;
     border-radius:5px;
     cursor:pointer;
-    background:var(--green);
+    background:#003645;
+    color:white;
     font-weight:500;
 }
 
 #cancel-card{
     position:absolute;
-    bottom:75px;
+    bottom:70px;
     right:75px;
     width:250px;
     outline:none;
     border:none;
     font-size:1em;
-    height:20px;
+    height:25px;
     border-radius:5px;
     cursor:pointer;
-    background:var(--red);
+    background:#450025;
+    color:white;
     font-weight:500;
 }
 
 #main-create{
     width:calc(100vw - 700px);
-    padding:50px 0;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+    padding:50px 50px;
     overflow-y:scroll;
+}
+
+#main-create input::placeholder{
+    color:red;
 }
 
 #main-create > *{
@@ -296,10 +299,55 @@ body{
     align-items:center;
 }
 
-#main-create > div > div> input{
-    width:calc(50vw - 375px);
-    background:transparent;
-    border:none;
+#main-create > div > div > input{
+    width:calc(50vw - 445px);
+    border:1px solid lightgray;
+    font-size:1.25em;
+    border-radius:10px;
+    background:#ddd;
+    height:25px;
+    margin-left:25px;
+    margin-right:12.5px;
+    color:gray;
+    padding:0 10px;
     outline:none;
-    padding:25px;
+    font-weight:300;
+}
+
+#main-create > div > div > input:focus{
+    border:1px solid var(--blue);
+}
+
+#main-create > div > div > div{
+    display:flex;
+    flex-direction:column;
+    padding:15px 0;
+    gap:10px;
+}
+
+#main-create > div > div > div > button{
+    width:calc(50vw - 425px);
+    background:var(--blue);
+    outline:none;
+    border:none;
+    height:25px;
+    color:white;
+    margin:0 25px 0 12.5px;
+    cursor:pointer;
+    border-radius:10px;
+    font-size:1em;
+}
+
+#main-create > div > div > div > input{
+    width:calc(50vw - 445px);
+    margin:0 25px 0 12.5px;
+    background:#ddd;
+    padding:0 10px;
+    border:1px solid lightgray;
+    border-radius:10px;
+    background:#ddd;
+    height:25px;
+    color:gray;
+    outline:none;
+    font-size:1em;
 }
