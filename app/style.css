@@ -32,8 +32,8 @@ body{
     height:25px;
     font-size:1.25em;
     transition-duration:250ms;
-    background:lightgray;
-    color:black;
+    background:#003645;
+    color:var(--light-blue);
     border:none;
     outline:none;
     border-radius:5px;
