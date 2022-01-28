@@ -24,16 +24,14 @@
                     <li>Esc - Cancel Changes</li>
                 </ul>
             </div>
-            <div id="main-create">
-                <button id="new-card-btn" onclick="createNewCard()">+ Add New Card</button>
-            </div>
+            <div id="main-create"></div>
             <div id="card-information">
                 <h1>Deck Information</h1>
                 <input type="text" placeholder="Deck Name" id="create-deck-name">
                 <textarea name="" cols="30" rows="10" placeholder="Description" id="create-deck-desc"></textarea>
                 <input type="text" placeholder="Deck Image" id="create-deck-img">
                 <button id="save-card" onclick="saveChanges()">Save Changes</button>
-                <button id="cancel-card" onclick="document.getElementById('create-modal').classList.add('inactive-modal'); document.getElementById('create-modal').classList.remove('active-modal');">Cancel Changes</button>
+                <button id="cancel-card" onclick="closeCreateModal()">Cancel Changes</button>
             </div>
         </div>
     </div>

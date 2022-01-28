@@ -2,6 +2,9 @@ const cardDiv = document.querySelector("#main-create");
 
 let inputDistribution = [];
 let cardIndex = 0;
+let createModalActive = false;
+
+let controlActive = false;
 
 function addDefinition(index){
     let newInput = document.createElement('input');
@@ -74,10 +77,60 @@ function saveChanges(){
 
     document.getElementById('create-modal').classList.add('inactive-modal');
     document.getElementById('create-modal').classList.remove('active-modal');
+    createModalActive = false;
 }
 
 function createDeck(){
+    cardIndex = 0;
+    inputDistribution = [];
+    let child = document.getElementById('main-create').lastElementChild;
+
+    while (child) {
+        document.getElementById('main-create').removeChild(child);
+        child = document.getElementById('main-create').lastElementChild;
+    }
+
     createNewCard();
+
+    let newBtn = document.createElement('button');
+    newBtn.id = "new-card-btn";
+    newBtn.innerHTML = "+ Add New Card"
+    newBtn.setAttribute('onclick', "createNewCard()");
+
+    document.getElementById('main-create').appendChild(newBtn);
+
+    //System.out.print("Something")
+
     document.getElementById('create-modal').classList.remove('inactive-modal');
     document.getElementById('create-modal').classList.add('active-modal');
+    createModalActive = true;
 }
+
+function closeCreateModal(){
+    document.getElementById('create-modal').classList.add('inactive-modal');
+    document.getElementById('create-modal').classList.remove('active-modal');
+    createModalActive = false;
+}
+
+document.addEventListener('keydown', function(e){
+    if(createModalActive){
+        if(e.keyCode == 27){
+            closeCreateModal();
+        } else if(e.keyCode == 13){
+            createNewCard();
+        }
+    } else if(e.keyCode == 78){
+        createDeck();
+    }
+
+    if(e.keyCode == 17){
+        controlActive = true;
+    }
+
+})
+
+document.addEventListener('keyup', function(e){
+    if(e.keyCode == 17){
+        controlActive = false;
+    }
+})
