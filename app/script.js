@@ -3,6 +3,7 @@ const cardDiv = document.querySelector("#main-create");
 let inputDistribution = [];
 let cardIndex = 0;
 let createModalActive = false;
+let activeInput = 0;
 
 let controlActive = false;
 
@@ -13,8 +14,11 @@ function addDefinition(index){
 
     newInput.placeholder = "Definition " + inputDistribution[index - 1];
     newInput.id = 'dinput-' + index + "-" + inputDistribution[index - 1];
+    newInput.setAttribute("onfocus", "activeInput = " + index);
 
     document.querySelector(".ddiv-" + index).insertBefore(newInput, document.querySelector(".dbtn-" + index));
+    document.querySelector("#dinput-" + index + "-" + inputDistribution[index - 1]).focus();
+    document.querySelector("#dinput-" + index + "-" + inputDistribution[index - 1]).scrollIntoView();
 }
 
 function createNewCard(){
@@ -30,6 +34,7 @@ function createNewCard(){
     cardIndex++;
     indexPara.innerHTML = cardIndex;
     termInput.placeholder = "Term"
+    termInput.setAttribute('onfocus', "activeInput = " + cardIndex);
     definitionBtn.innerHTML = "+ Add Answer"
     definitionBtn.setAttribute('onclick', 'addDefinition(' + cardIndex + ')');
     definitionDiv.classList.add("ddiv-" + cardIndex);
@@ -46,11 +51,13 @@ function createNewCard(){
     cardDiv.insertBefore(newDiv, document.querySelector("#new-card-btn"));
 
     addDefinition(cardIndex);
+    termInput.focus();
+    document.querySelectorAll(".term-input")[cardIndex - 1].scrollIntoView();
 }
 
 function saveChanges(){
     const terms = document.querySelectorAll(".term-input");
-    const title = document.querySelector("#create-deck-name");
+    const title = document.querySelector("#create-deck-name").value;
     const description = document.querySelector("#create-deck-desc");
     const img = document.querySelector("#create-deck-img");
 
@@ -73,7 +80,9 @@ function saveChanges(){
     }
 
     newObject.cards = termsObj;
-    localStorage.setItem(title.value, newObject);
+    localStorage.setItem(title, newObject);
+    console.log(termsObj);
+    console.log(localStorage.getItem(title))
 
     document.getElementById('create-modal').classList.add('inactive-modal');
     document.getElementById('create-modal').classList.remove('active-modal');
@@ -117,7 +126,12 @@ document.addEventListener('keydown', function(e){
         if(e.keyCode == 27){
             closeCreateModal();
         } else if(e.keyCode == 13){
-            createNewCard();
+            if(controlActive) saveChanges();
+            else createNewCard();
+        } else if(e.keyCode == 68 && controlActive){
+            e.preventDefault();
+            e.stopPropagation();
+            addDefinition(activeInput);
         }
     } else if(e.keyCode == 78){
         createDeck();
