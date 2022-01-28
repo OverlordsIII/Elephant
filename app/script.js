@@ -80,9 +80,12 @@ function saveChanges(){
     }
 
     newObject.cards = termsObj;
-    localStorage.setItem(title, newObject);
+    localStorage.setItem(title, JSON.stringify(newObject));
     console.log(termsObj);
-    console.log(localStorage.getItem(title))
+
+    let localObj = window.localStorage.getItem(title)
+
+    console.log(JSON.parse(localObj))
 
     document.getElementById('create-modal').classList.add('inactive-modal');
     document.getElementById('create-modal').classList.remove('active-modal');
