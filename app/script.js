@@ -90,12 +90,6 @@ function saveChanges(){
     document.getElementById('create-modal').classList.add('inactive-modal');
     document.getElementById('create-modal').classList.remove('active-modal');
     createModalActive = false;
-    let child = document.getElementById('main-container').lastElementChild;
-
-    while (child) {
-        document.getElementById('main-container').removeChild(child);
-        child = document.getElementById('main-container').lastElementChild;
-    }
     loadDecks();
 }
 
@@ -125,7 +119,19 @@ function createDeck(){
     createModalActive = true;
 }
 
+function deleteDeck(index){
+    localStorage.removeItem(localStorage.key(index))
+    loadDecks();
+}
+
 function loadDecks(){
+    let child = document.getElementById('main-container').lastElementChild;
+
+    while (child) {
+        document.getElementById('main-container').removeChild(child);
+        child = document.getElementById('main-container').lastElementChild;
+    }
+
     for(let i = 0; i < localStorage.length; i++){
         let newDiv = document.createElement('div');
         let imageDiv = document.createElement('div');
@@ -150,7 +156,8 @@ function loadDecks(){
 
         button.innerHTML = "Open Deck"
         edit.innerHTML = "Edit Deck";
-        deleteItem.src = "icons/delete.svg"
+        deleteItem.src = "icons/delete.svg";
+        deleteItem.setAttribute("onclick", "deleteDeck(" + i + ")")
 
         textDiv.appendChild(header);
         textDiv.appendChild(para);
