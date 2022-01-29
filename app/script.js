@@ -1,4 +1,5 @@
 const cardDiv = document.querySelector("#main-create");
+const colorRange = ["#E74C3C", "#3498DB", "#1ABC9C", "#F1C40F"];
 
 let inputDistribution = [];
 let cardIndex = 0;
@@ -80,16 +81,22 @@ function saveChanges(){
     }
 
     newObject.cards = termsObj;
-    localStorage.setItem(title, JSON.stringify(newObject));
+    
+    let newObj = JSON.stringify(newObject)
+
+    localStorage.setItem(title, newObj);
     console.log(termsObj);
-
-    let localObj = window.localStorage.getItem(title)
-
-    console.log(JSON.parse(localObj))
 
     document.getElementById('create-modal').classList.add('inactive-modal');
     document.getElementById('create-modal').classList.remove('active-modal');
     createModalActive = false;
+    let child = document.getElementById('main-container').lastElementChild;
+
+    while (child) {
+        document.getElementById('main-container').removeChild(child);
+        child = document.getElementById('main-container').lastElementChild;
+    }
+    loadDecks();
 }
 
 function createDeck(){
@@ -116,6 +123,47 @@ function createDeck(){
     document.getElementById('create-modal').classList.remove('inactive-modal');
     document.getElementById('create-modal').classList.add('active-modal');
     createModalActive = true;
+}
+
+function loadDecks(){
+    for(let i = 0; i < localStorage.length; i++){
+        let newDiv = document.createElement('div');
+        let imageDiv = document.createElement('div');
+        let textDiv = document.createElement('div');
+        let header = document.createElement('h1');
+        let para = document.createElement('p');
+        let button = document.createElement('button');
+        let edit = document.createElement('button');
+        let deleteItem = document.createElement('img');
+
+        let object = JSON.parse(JSON.stringify(localStorage.getItem(localStorage.key(i))))
+        object = object.split('"')
+
+        header.innerHTML = localStorage.key(i)
+        para.innerHTML = Object.values(object)[3];
+
+        if(Object.values(object)[7] == ''){
+            imageDiv.style.background = colorRange[Math.floor(Math.random() * colorRange.length)];
+        } else {
+            imageDiv.style.backgroundImage = "url('" + Object.values(object)[7] + "')";
+        }
+
+        button.innerHTML = "Open Deck"
+        edit.innerHTML = "Edit Deck";
+        deleteItem.src = "icons/delete.svg"
+
+        textDiv.appendChild(header);
+        textDiv.appendChild(para);
+        textDiv.appendChild(button);
+        textDiv.appendChild(edit);
+
+        newDiv.appendChild(imageDiv);
+        newDiv.appendChild(textDiv);
+
+        newDiv.appendChild(deleteItem);
+
+        document.getElementById('main-container').appendChild(newDiv);
+    }
 }
 
 function closeCreateModal(){
@@ -151,3 +199,5 @@ document.addEventListener('keyup', function(e){
         controlActive = false;
     }
 })
+
+loadDecks();

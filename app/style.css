@@ -87,6 +87,8 @@ body{
     flex-direction:row;
     flex-wrap:wrap;
     align-items:flex-start;
+    overflow-y:scroll;
+    gap:10px;
 }
 
 #main-container > div{
@@ -94,10 +96,10 @@ body{
     width:200px;
     border-radius:25px;
     border: 1px solid lightgray;
+    position:relative;
 }
 
 #main-container > div div:first-of-type{
-    background-image:url('https://pbs.twimg.com/profile_images/1250878895294988288/OrH0MiRP_400x400.jpg');
     background-position:center;
     background-size:cover;
     width:200px;
@@ -126,7 +128,7 @@ body{
     font-size:1em;
     width:180px;
     height:25px;
-    margin-top:10px;
+    margin-top:5px;
     background:var(--blue);
     transition-duration:250ms;
     color:white;
@@ -135,8 +137,21 @@ body{
     cursor:pointer;
 }
 
+#main-container > div div:last-of-type button:hover{
+    background:var(--dark-blue);
+}
+
 #main-container > div div:last-of-type button:active{
     box-shadow:inset 0 0 10px 0 black;
+}
+
+#main-container > div > img{
+    position:absolute;
+    top:10px;
+    right:10px;
+    width:25px;
+    cursor:pointer;
+
 }
 
 .active-modal{
