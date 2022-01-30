@@ -8,7 +8,7 @@ let activeInput = 0;
 
 let controlActive = false;
 
-function addDefinition(index){
+function addDefinition(index, value){
     let newInput = document.createElement('input');
 
     inputDistribution[index - 1]++;
@@ -17,12 +17,16 @@ function addDefinition(index){
     newInput.id = 'dinput-' + index + "-" + inputDistribution[index - 1];
     newInput.setAttribute("onfocus", "activeInput = " + index);
 
+    if(value != undefined){
+        newInput.value = value;
+    }
+
     document.querySelector(".ddiv-" + index).insertBefore(newInput, document.querySelector(".dbtn-" + index));
     document.querySelector("#dinput-" + index + "-" + inputDistribution[index - 1]).focus();
     document.querySelector("#dinput-" + index + "-" + inputDistribution[index - 1]).scrollIntoView();
 }
 
-function createNewCard(){
+function createNewCard(term, descriptionList){
     let newDiv = document.createElement('div');
     let indexPara = document.createElement('p')
     let childDiv = document.createElement('div');
@@ -42,6 +46,10 @@ function createNewCard(){
     definitionBtn.classList.add("dbtn-" + cardIndex);
     termInput.classList.add("term-input")
 
+    if(term != undefined){
+        termInput.value = term;
+    }
+
     definitionDiv.appendChild(definitionBtn);
 
     childDiv.appendChild(termInput);
@@ -51,9 +59,16 @@ function createNewCard(){
     newDiv.appendChild(childDiv);
     cardDiv.insertBefore(newDiv, document.querySelector("#new-card-btn"));
 
-    addDefinition(cardIndex);
+    if(descriptionList == undefined || descriptionList.length == 0){
+        addDefinition(cardIndex, "");
+    } else {
+        for(let i = 0; i < descriptionList.length; i++){
+            addDefinition(cardIndex, descriptionList[i]);
+        }
+    }
+
     termInput.focus();
-    document.querySelectorAll(".term-input")[cardIndex - 1].scrollIntoView();
+    if(document.querySelectorAll(".term-input")[cardIndex - 1] != undefined) document.querySelectorAll(".term-input")[cardIndex - 1].scrollIntoView();
 }
 
 function saveChanges(){
@@ -103,17 +118,74 @@ function createDeck(){
         child = document.getElementById('main-create').lastElementChild;
     }
 
-    createNewCard();
+    document.getElementById('create-deck-name').value = "";
+    document.getElementById('create-deck-desc').value = "";
+
+    createNewCard(undefined, undefined);
 
     let newBtn = document.createElement('button');
     newBtn.id = "new-card-btn";
     newBtn.innerHTML = "+ Add New Card"
-    newBtn.setAttribute('onclick', "createNewCard()");
+    newBtn.setAttribute('onclick', "createNewCard(undefined, undefined)");
 
     document.getElementById('main-create').appendChild(newBtn);
 
     //System.out.print("Something")
 
+    document.getElementById('create-header').innerHTML = "Create A New Deck";
+    document.getElementById('create-description').innerHTML = "You will now create a new Elephant Study Deck that you can access on your computer at any time. Good luck studying!"
+    document.getElementById('create-modal').classList.remove('inactive-modal');
+    document.getElementById('create-modal').classList.add('active-modal');
+    createModalActive = true;
+}
+
+function editDeck(index){
+    let object = JSON.parse(JSON.stringify(localStorage.getItem(localStorage.key(index))))
+    object = object.split('"')
+    cardIndex = 0;
+
+    let child = document.getElementById('main-create').lastElementChild;
+
+    while (child) {
+        document.getElementById('main-create').removeChild(child);
+        child = document.getElementById('main-create').lastElementChild;
+    }
+
+    document.getElementById('create-deck-name').value = localStorage.key(index);
+    document.getElementById('create-deck-desc').value = object[3];
+    document.getElementById('create-deck-img').value = object[7];
+
+    console.log(object);
+
+    let newBtn = document.createElement('button');
+    newBtn.id = "new-card-btn";
+    newBtn.innerHTML = "+ Add New Card"
+    newBtn.setAttribute('onclick', "createNewCard(undefined, undefined)");
+
+    document.getElementById('main-create').appendChild(newBtn);
+
+    let newTerm = "";
+    let definitions = false;
+    let definitionList = [];
+
+    for(let i = 11; i < object.length; i++){
+        if(object[i] == ':[') {
+            definitions = true;
+        }
+        else if (object[i] == '],' || object[i] == ']}}') {
+            definitions = false;
+            createNewCard(newTerm, definitionList);
+        } else if(definitions == false) {
+            newTerm = object[i];
+            definitionList = [];
+        }
+        else {
+            if(object[i] != ",") definitionList.push(object[i])
+        }
+    }
+
+    document.getElementById('create-header').innerHTML = "Edit An Existing Deck";
+    document.getElementById('create-description').innerHTML = "You will now edit an existing Elephant Study Deck that you can access on your computer at any time. Good luck studying!"
     document.getElementById('create-modal').classList.remove('inactive-modal');
     document.getElementById('create-modal').classList.add('active-modal');
     createModalActive = true;
@@ -156,6 +228,7 @@ function loadDecks(){
 
         button.innerHTML = "Open Deck"
         edit.innerHTML = "Edit Deck";
+        edit.setAttribute('onclick', "editDeck(" + i + ")");
         deleteItem.src = "icons/delete.svg";
         deleteItem.setAttribute("onclick", "deleteDeck(" + i + ")")
 
@@ -185,7 +258,7 @@ document.addEventListener('keydown', function(e){
             closeCreateModal();
         } else if(e.keyCode == 13){
             if(controlActive) saveChanges();
-            else createNewCard();
+            else createNewCard(undefined, undefined);
         } else if(e.keyCode == 68 && controlActive){
             e.preventDefault();
             e.stopPropagation();
