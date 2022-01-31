@@ -88,7 +88,7 @@ function saveChanges(){
 
     for(let i = 0; i < terms.length; i++){
         for(let j = 0; j < inputDistribution[i]; j++){
-            tempList.push(document.getElementById("dinput-" + (i + 1) + "-" + (j+1)).value);
+            tempList.push(document.getElementById("dinput-" + (i + 1) + "-" + (j + 1)).value);
         }
         termsObj[terms[i].value] = tempList;
 
@@ -142,6 +142,7 @@ function createDeck(){
 function editDeck(index){
     let object = JSON.parse(JSON.stringify(localStorage.getItem(localStorage.key(index))))
     object = object.split('"')
+    inputDistribution = [];
     cardIndex = 0;
 
     let child = document.getElementById('main-create').lastElementChild;
