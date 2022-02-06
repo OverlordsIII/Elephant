@@ -332,6 +332,19 @@ body{
     scroll-behavior: smooth;
 }
 
+#main-create::-webkit-scrollbar {
+    width:16px;
+}
+
+#main-create::-webkit-scrollbar-track {
+    background: var(--bg-color-2);
+}
+
+#main-create::-webkit-scrollbar-thumb {
+    background: var(--theme-color-2);
+    border-radius:8px 0 0 8px;
+}
+
 #main-create input::placeholder{
     color:var(--theme-color-2);
 }

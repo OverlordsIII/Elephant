@@ -20,7 +20,7 @@ function setMode(){
         document.documentElement.style.setProperty('--bg-color-1', bgRange[1][0]);
         document.documentElement.style.setProperty('--bg-color-2', bgRange[1][1]);
         document.documentElement.style.setProperty('--text-color', "white");
-        document.documentElement.style.setProperty('--border-color', "#303030");
+        document.documentElement.style.setProperty('--border-color', "#272727");
         document.documentElement.style.setProperty('--image-invert', "1");
     } else {
         document.documentElement.style.setProperty('--bg-color-1', bgRange[0][0]);
