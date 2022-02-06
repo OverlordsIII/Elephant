@@ -320,7 +320,7 @@ document.addEventListener('keyup', function(e){
 
 window.onload = function(){
     let theme = localStorage.getItem('theme-index');
-    theme = theme ?? 1;
+    theme = theme ?? 0;
 
     localStorage.setItem('theme-index', theme);
 
