@@ -93,7 +93,7 @@ body{
     border:1px solid var(--border-color);
     border-radius:10px;
     margin-right:10px;
-    background:linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) 62%, var(--light-blue) 62%);
+    background:linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) 62%, var(--bg-color-2) 62%);
 }
 
 #progress-bar::after{
