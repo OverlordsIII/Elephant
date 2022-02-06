@@ -7,12 +7,24 @@
     --light-blue:#f6f7fb;
     --green:#3dffae;
     --red:#ff3d71;
+    --mid-blue:#42b3ff;
+
+    --theme-color-1:#405DE6;
+    --theme-color-2:#833AB4;
+    --theme-color-dark:#354382;
+
+    --bg-color-1:white;
+    --bg-color-2:#f6f7fb;
+    --text-color:black;
+    --border-color:lightgray;
+    --image-invert:0;
 }
 
 body{
     margin:0;
     font-family:'Outfit';
-    background:white;
+    background:var(--bg-color-1);
+    color:var(--text-color);
     display:flex;
     flex-direction:row;
     overflow:hidden;
@@ -23,8 +35,8 @@ body{
     width:200px;
     height:calc(100vh - 50px);
     padding:25px;
-    background:var(--dark-blue);
-    border-right:1px solid lightgray;
+    background:linear-gradient(150deg, var(--theme-color-1), var(--theme-color-2));
+    border-right:1px solid var(--border-color);
     z-index:2;
 }
 
@@ -33,7 +45,7 @@ body{
     height:25px;
     font-size:1.25em;
     transition-duration:250ms;
-    background:#003645;
+    background:var(--theme-color-dark);
     color:var(--light-blue);
     border:none;
     outline:none;
@@ -52,10 +64,44 @@ body{
 
 #navbar{
     width:calc(100vw - 300px);
-    border-bottom:1px solid lightgray;
-    box-shadow:0 0 25px 0 lightgray;
+    border-bottom:1px solid var(--border-color);
+    box-shadow:0 0 25px 0 var(--border-color);
     padding:0 25px;
+    display:flex;
     z-index:1;
+}
+
+#navbar-right{
+    position:absolute;
+    right:25px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    height:70px;
+    gap:10px;
+}
+
+.navbar-icon-btn > img{
+    height:25px;
+    cursor:pointer;
+    filter:invert(var(--image-invert));
+}
+
+#progress-bar{
+    width:300px;
+    height:20px;
+    border:1px solid var(--border-color);
+    border-radius:10px;
+    margin-right:10px;
+    background:linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) 62%, var(--light-blue) 62%);
+}
+
+#progress-bar::after{
+    content:'Level 12';
+    font-weight:500;
+    position:absolute;
+    right:245px;
+    top:26px;
 }
 
 #logo-div{
@@ -82,7 +128,7 @@ body{
 }
 
 #main-container{
-    background:var(--light-blue);
+    background:var(--bg-color-2);
     width:calc(100vw - 300px);
     height:calc(100vh - 120px);
     padding:25px;
@@ -98,7 +144,7 @@ body{
     overflow:hidden;
     width:200px;
     border-radius:25px;
-    border: 1px solid lightgray;
+    box-shadow:0 0 10px 0 var(--border-color);
     position:relative;
 }
 
@@ -111,7 +157,7 @@ body{
 
 #main-container > div div:last-of-type {
     padding:25px 10px;
-    background:white;
+    background:var(--bg-color-1);
 }
 
 #main-container > div div:last-of-type h1{
@@ -132,16 +178,16 @@ body{
     width:180px;
     height:25px;
     margin-top:5px;
-    background:var(--blue);
+    background:var(--bg-color-2);
     transition-duration:250ms;
-    color:white;
+    color:var(--text-color);
     border-radius:5px;
     border:none;
     cursor:pointer;
 }
 
 #main-container > div div:last-of-type button:hover{
-    background:var(--dark-blue);
+    background:var(--theme-color-2);
 }
 
 #main-container > div div:last-of-type button:active{
@@ -157,6 +203,7 @@ body{
     cursor:pointer;
     background:white;
     border-radius:16px;
+    filter:invert(var(--image-invert));
 }
 
 #create-modal{
@@ -182,16 +229,16 @@ body{
     width:calc(100vw - 100px);
     height:calc(100vh - 100px);
     border-radius:25px;
-    background:white;
+    background:var(--bg-color-1);
     overflow:hidden;
     display:flex;
     flex-direction:row;
 }
 
 #create-sidebar {
-    background:var(--light-blue);
+    background:var(--bg-color-2);
     height:calc(100vh - 150px);
-    border-right:1px solid lightgray;
+    border-right:1px solid var(--border-color);
     width:250px;
     padding:25px;
 }
@@ -209,9 +256,8 @@ body{
 }
 
 #card-information{
-    background:var(--dark-blue);
+    background:var(--theme-color-1);
     height:calc(100vh - 150px);
-    border-left:1px solid lightgray;
     padding:25px;
     width:250px;
 }
@@ -224,11 +270,11 @@ body{
 
 #card-information input{
     width:230px;
-    color:lightgray;
+    color:gray;
     outline:none;
     border:none;
     margin:10px 0;
-    background:var(--blue);
+    background:var(--bg-color-2);
     font-size:1.25em;
     padding:10px;
     border-radius:5px;
@@ -236,11 +282,11 @@ body{
 
 #card-information textarea{
     font-family: 'Source Sans Pro', sans-serif;
-    background:var(--blue);
+    background:var(--bg-color-2);
     border-radius:5px;
     padding:10px;
     outline:none;
-    color:lightgray;
+    color:gray;
     resize:none;
     border:none;
     font-size:1em;
@@ -258,7 +304,7 @@ body{
     height:25px;
     border-radius:5px;
     cursor:pointer;
-    background:#003645;
+    background:var(--theme-color-dark);
     color:white;
     font-weight:500;
 }
@@ -283,18 +329,19 @@ body{
     width:calc(100vw - 700px);
     padding:50px 50px;
     overflow-y:scroll;
+    scroll-behavior: smooth;
 }
 
 #main-create input::placeholder{
-    color:red;
+    color:var(--theme-color-2);
 }
 
 #main-create > *{
     width:calc(100vw - 800px);
-    border:1px solid lightgray;
+    border:1px solid var(--border-color);
     border-radius:10px;
     margin-bottom:20px;
-    background:var(--light-blue);
+    background:var(--bg-color-2);
 }
 
 #main-create > button{
@@ -313,12 +360,12 @@ body{
 
 #main-create > div > p{
     width:calc(100vw - 850px);
-    background:var(--blue);
-    border-bottom:1px solid lightgray;
+    background:var(--theme-color-1);
+    border-bottom:1px solid var(--border-color);
     margin:0;
     padding:5px 25px;
     font-size:1.25em;
-    color:var(--light-blue);
+    color:white;
 }
 
 #main-create > div > div{
@@ -329,10 +376,10 @@ body{
 
 #main-create > div > div > input{
     width:calc(50vw - 445px);
-    border:1px solid lightgray;
+    border:1px solid var(--border-color);
     font-size:1.25em;
     border-radius:10px;
-    background:#eee;
+    background:var(--bg-color-1);
     height:25px;
     margin-left:25px;
     margin-right:12.5px;
@@ -343,7 +390,7 @@ body{
 }
 
 #main-create > div > div > input:focus{
-    border:1px solid var(--blue);
+    border:1px solid var(--theme-color-dark);
 }
 
 #main-create > div > div > div{
@@ -355,7 +402,7 @@ body{
 
 #main-create > div > div > div > button{
     width:calc(50vw - 425px);
-    background:var(--blue);
+    background:var(--theme-color-1);
     outline:none;
     border:none;
     height:25px;
@@ -369,11 +416,10 @@ body{
 #main-create > div > div > div > input{
     width:calc(50vw - 445px);
     margin:0 25px 0 12.5px;
-    background:#eee;
+    background:var(--bg-color-1);
     padding:0 10px;
-    border:1px solid lightgray;
+    border:1px solid var(--border-color);
     border-radius:10px;
-    background:#ddd;
     height:25px;
     color:gray;
     outline:none;
@@ -383,4 +429,52 @@ body{
 #review-modal{
     display:flex;
     flex-direction:row;
+}
+
+#settings-modal{
+    width:150px;
+    position:absolute;
+    top:50px;
+    right:25px;
+    background:var(--bg-color-1);
+    padding:25px;
+    border-radius:15px;
+    flex-direction:column;
+}
+
+#settings-modal > div > h2{
+    font-size:1.25em;
+    color:var(--text-color);
+    font-weight:300;
+    margin:8px 0;
+}
+
+#settings-theme > div{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:16px;
+}
+
+#settings-theme > div > div{
+    width:25px;
+    height:25px;
+    border-radius:5px;
+    cursor:pointer;
+    transition-duration:250ms;
+}
+
+#settings-theme > div > div:hover{
+    transform:scale(1.1);
+}
+
+#theme-1 {background:linear-gradient(150deg, #405DE6, #833AB4)}
+#theme-2 {background:linear-gradient(150deg, #833AB4, #E1306C)}
+#theme-3 {background:linear-gradient(150deg, #F56040, #FCAF45)}
+
+#settings-mode {
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    gap:8px;
 }

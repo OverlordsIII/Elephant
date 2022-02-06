@@ -12,6 +12,20 @@
     <script src="script.js" defer></script>
 </head>
 <body>
+    <div id="settings-modal" class="active-modal">
+        <div id="settings-theme">
+            <h2>Update Theme</h2>
+            <div>
+                <div id="theme-1" onclick="setTheme(0)"></div>
+                <div id="theme-2" onclick="setTheme(1)"></div>
+                <div id="theme-3" onclick="setTheme(2)"></div>
+            </div>
+        </div>
+        <div id="settings-mode">
+            <h2>Dark Mode?</h2>
+            <input type="checkbox" id="dark-mode-input" onchange="setMode()">
+        </div>
+    </div>
     <div id="review-modal" class="active-modal">
         
     </div>
@@ -49,6 +63,18 @@
                 <div>
                     <h1>Elephant</h1>
                     <p>The Better Flashcards</p>
+                </div>
+            </div>
+            <div id="navbar-right">
+                <div id="progress-bar"></div>
+                <div class="navbar-icon-btn">
+                    <img src="icons/inventory.svg" alt="Bro" id="inventory">
+                </div>
+                <div class="navbar-icon-btn">
+                    <img src="icons/notif.svg" alt="Bro" id="notifs">
+                </div>
+                <div class="navbar-icon-btn">
+                    <img src="icons/settings.svg" alt="Bro" id="inventory">
                 </div>
             </div>
         </div>

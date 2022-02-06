@@ -1,5 +1,6 @@
 const cardDiv = document.querySelector("#main-create");
-const colorRange = ["#E74C3C", "#3498DB", "#1ABC9C", "#F1C40F"];
+const colorRange = [["#405DE6", "#833AB4", "#354382"], ["#833AB4", "#E1306C", "#664180"], ["#F56040", "#FCAF45", "#b55641"]];
+const bgRange = [["#ffffff", "#f6f7fb"], ["#191919", "#1f1f1f"]];
 
 let inputDistribution = [];
 let cardIndex = 0;
@@ -7,6 +8,28 @@ let createModalActive = false;
 let activeInput = 0;
 
 let controlActive = false;
+
+function setTheme(themeIndex){
+    document.documentElement.style.setProperty('--theme-color-1', colorRange[themeIndex][0]);
+    document.documentElement.style.setProperty('--theme-color-2', colorRange[themeIndex][1]);
+    document.documentElement.style.setProperty('--theme-color-dark', colorRange[themeIndex][2]);
+}
+
+function setMode(){
+    if(document.getElementById("dark-mode-input").checked){
+        document.documentElement.style.setProperty('--bg-color-1', bgRange[1][0]);
+        document.documentElement.style.setProperty('--bg-color-2', bgRange[1][1]);
+        document.documentElement.style.setProperty('--text-color', "white");
+        document.documentElement.style.setProperty('--border-color', "#303030");
+        document.documentElement.style.setProperty('--image-invert', "1");
+    } else {
+        document.documentElement.style.setProperty('--bg-color-1', bgRange[0][0]);
+        document.documentElement.style.setProperty('--bg-color-2', bgRange[0][1]);
+        document.documentElement.style.setProperty('--text-color', "black");
+        document.documentElement.style.setProperty('--border-color', "lightgray");
+        document.documentElement.style.setProperty('--image-invert', "0");
+    }
+}
 
 function addDefinition(index, value){
     let newInput = document.createElement('input');
@@ -222,7 +245,8 @@ function loadDecks(){
         para.innerHTML = Object.values(object)[3];
 
         if(Object.values(object)[7] == ''){
-            imageDiv.style.background = colorRange[Math.floor(Math.random() * colorRange.length)];
+            let randomColor = colorRange[Math.floor(Math.random() * colorRange.length)];
+            imageDiv.style.background = "linear-gradient(135deg, " + randomColor[0] + ", " + randomColor[1] + ")";
         } else {
             imageDiv.style.backgroundImage = "url('" + Object.values(object)[7] + "')";
         }
