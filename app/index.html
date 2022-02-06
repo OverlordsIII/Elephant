@@ -12,7 +12,7 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div id="settings-modal" class="active-modal">
+    <div id="settings-modal" class="inactive-modal">
         <div id="settings-theme">
             <h2>Update Theme</h2>
             <div>
@@ -73,7 +73,7 @@
                 <div class="navbar-icon-btn">
                     <img src="icons/notif.svg" alt="Bro" id="notifs">
                 </div>
-                <div class="navbar-icon-btn">
+                <div class="navbar-icon-btn" onclick="toggleSettingsModal()">
                     <img src="icons/settings.svg" alt="Bro" id="inventory">
                 </div>
             </div>

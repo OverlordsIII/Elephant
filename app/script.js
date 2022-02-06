@@ -9,10 +9,21 @@ let activeInput = 0;
 
 let controlActive = false;
 
+function toggleSettingsModal(){
+    if(document.getElementById('settings-modal').classList.contains('active-modal')){
+        document.getElementById('settings-modal').classList.remove('active-modal');
+        document.getElementById('settings-modal').classList.add('inactive-modal');
+    } else {
+        document.getElementById('settings-modal').classList.add('active-modal');
+        document.getElementById('settings-modal').classList.remove('inactive-modal');
+    }
+}
+
 function setTheme(themeIndex){
     document.documentElement.style.setProperty('--theme-color-1', colorRange[themeIndex][0]);
     document.documentElement.style.setProperty('--theme-color-2', colorRange[themeIndex][1]);
     document.documentElement.style.setProperty('--theme-color-dark', colorRange[themeIndex][2]);
+    localStorage.setItem('theme-index', themeIndex);
 }
 
 function setMode(){
@@ -238,36 +249,38 @@ function loadDecks(){
         let edit = document.createElement('button');
         let deleteItem = document.createElement('img');
 
-        let object = JSON.parse(JSON.stringify(localStorage.getItem(localStorage.key(i))))
-        object = object.split('"')
+        if(localStorage.key(i) != "theme-index"){
+            let object = JSON.parse(JSON.stringify(localStorage.getItem(localStorage.key(i))))
+            object = object.split('"')
 
-        header.innerHTML = localStorage.key(i)
-        para.innerHTML = Object.values(object)[3];
+            header.innerHTML = localStorage.key(i)
+            para.innerHTML = Object.values(object)[3];
 
-        if(Object.values(object)[7] == ''){
-            let randomColor = colorRange[Math.floor(Math.random() * colorRange.length)];
-            imageDiv.style.background = "linear-gradient(135deg, " + randomColor[0] + ", " + randomColor[1] + ")";
-        } else {
-            imageDiv.style.backgroundImage = "url('" + Object.values(object)[7] + "')";
+            if(Object.values(object)[7] == ''){
+                let randomColor = colorRange[Math.floor(Math.random() * colorRange.length)];
+                imageDiv.style.background = "linear-gradient(135deg, " + randomColor[0] + ", " + randomColor[1] + ")";
+            } else {
+                imageDiv.style.backgroundImage = "url('" + Object.values(object)[7] + "')";
+            }
+
+            button.innerHTML = "Open Deck"
+            edit.innerHTML = "Edit Deck";
+            edit.setAttribute('onclick', "editDeck(" + i + ")");
+            deleteItem.src = "icons/delete.svg";
+            deleteItem.setAttribute("onclick", "deleteDeck(" + i + ")")
+
+            textDiv.appendChild(header);
+            textDiv.appendChild(para);
+            textDiv.appendChild(button);
+            textDiv.appendChild(edit);
+
+            newDiv.appendChild(imageDiv);
+            newDiv.appendChild(textDiv);
+
+            newDiv.appendChild(deleteItem);
+
+            document.getElementById('main-container').appendChild(newDiv);
         }
-
-        button.innerHTML = "Open Deck"
-        edit.innerHTML = "Edit Deck";
-        edit.setAttribute('onclick', "editDeck(" + i + ")");
-        deleteItem.src = "icons/delete.svg";
-        deleteItem.setAttribute("onclick", "deleteDeck(" + i + ")")
-
-        textDiv.appendChild(header);
-        textDiv.appendChild(para);
-        textDiv.appendChild(button);
-        textDiv.appendChild(edit);
-
-        newDiv.appendChild(imageDiv);
-        newDiv.appendChild(textDiv);
-
-        newDiv.appendChild(deleteItem);
-
-        document.getElementById('main-container').appendChild(newDiv);
     }
 }
 
@@ -304,5 +317,14 @@ document.addEventListener('keyup', function(e){
         controlActive = false;
     }
 })
+
+window.onload = function(){
+    let theme = localStorage.getItem('theme-index');
+    theme = theme ?? 1;
+
+    localStorage.setItem('theme-index', theme);
+
+    setTheme(localStorage.getItem('theme-index'));
+}
 
 loadDecks();

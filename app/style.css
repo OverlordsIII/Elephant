@@ -447,12 +447,15 @@ body{
 #settings-modal{
     width:150px;
     position:absolute;
-    top:50px;
+    top:70px;
     right:25px;
     background:var(--bg-color-1);
     padding:25px;
-    border-radius:15px;
+    border-radius:0 0 15px 15px;
     flex-direction:column;
+    border:1px solid var(--border-color);
+    border-top:none;
+    z-index:2;
 }
 
 #settings-modal > div > h2{
