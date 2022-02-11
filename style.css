@@ -102,7 +102,7 @@ body{
 }
 
 #main-container{
-    background:var(--dark-blue);
+    background:linear-gradient(150deg, #405DE6, #833AB4);
     width:100vw;
     height:50vh;
     position:relative;

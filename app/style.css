@@ -439,11 +439,6 @@ body{
     font-size:1em;
 }
 
-#review-modal{
-    display:flex;
-    flex-direction:row;
-}
-
 #settings-modal{
     width:150px;
     position:absolute;
@@ -493,4 +488,149 @@ body{
     flex-direction:row;
     align-items:center;
     gap:8px;
+}
+
+#review-modal{
+    flex-direction:row;
+    position:absolute;
+    bottom:0;
+    right:0;
+    width:calc(100vw - 250px);
+    height:calc(100vh - 70px);
+    background:var(--bg-color-2);
+    z-index:1;
+}
+
+#review-main-container{
+    width:calc(100vw - 500px);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+#review-sidebar{
+    width:200px;
+    padding:25px;
+    background:var(--bg-color-2);
+    border-left:1px solid var(--border-color);
+}
+
+#review-flashcard{
+    display:flex;
+    flex-direction:row;
+    border:1px solid var(--border-color);
+    border-radius:25px;
+    overflow:hidden;
+}
+
+#flashcard-header{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:25px;
+    width:200px;
+    border-right:1px solid var(--border-color);
+    background:var(--theme-color-1);
+    color:white;
+}
+
+#flashcard-header > h1{
+    margin:0;
+    font-size:32px;
+    font-weight:500;
+}
+
+#flashcard-answers{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+    padding:25px;
+    background:var(--bg-color-1);
+}
+
+#flashcard-answers > div{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    position:relative;
+}
+
+#flashcard-answers > div > button{
+    width:calc(100vw - 900px);
+    background:var(--bg-color-2);
+    border:1px solid var(--border-color);
+    border-radius:10px;
+    padding:5px 0;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:100;
+    cursor:pointer;
+    transition-duration:250ms;
+}
+
+#flashcard-answers > div > input{
+    width:calc(100vw - 924px);
+    background:var(--bg-color-2);
+    border:1px solid var(--border-color);
+    outline:none;
+    border-radius:10px;
+    padding:5px 12px;
+    color:gray;
+}
+
+#flashcard-answers > div > input:focus{
+    border:1px solid var(--theme-color-1);
+}
+
+#flashcard-answers > div > button:hover{
+    background:var(--theme-color-1);
+}
+
+#flashcard-answers > button:last-of-type{
+    width:calc(100vw - 900px);
+    border:1px solid var(--border-color);
+    border-radius:10px;
+    padding:5px 0;
+    cursor:pointer;
+    font-size:16px;
+    font-weight:100;
+    cursor:pointer;
+    transition-duration:250ms;
+    background:var(--theme-color-1);
+    color:white;
+}
+
+#flashcard-answers > button:last-of-type:hover{
+    background:var(--theme-color-2);
+}
+
+#flashcard-answers > div > div{
+    position:absolute;
+    width:15px;
+    height:15px;
+    right:10px;
+    border-radius:50%;
+}
+
+.wrong{
+    background:var(--red);
+}
+
+.right{
+    background:var(--green);
+}
+
+#review-progress{
+    width:200px;
+    height:15px;
+    border:1px solid var(--border-color);
+    border-radius:10px;
+    margin-right:10px;
+    text-align:center;
+    font-size:11px;
+    background:linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) 62%, var(--bg-color-1) 62%);
 }

@@ -13,7 +13,7 @@ function createRandomProfilePic(){
     canvas.height = quality * size;
 
     ctx.beginPath();
-    ctx.fillStyle = "#004153";
+    ctx.fillStyle = "#405DE6";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     ctx.fill();
     ctx.fillStyle = colorRange[Math.floor(Math.random() * colorRange.length)]

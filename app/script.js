@@ -302,7 +302,7 @@ document.addEventListener('keydown', function(e){
             e.stopPropagation();
             addDefinition(activeInput);
         }
-    } else if(e.keyCode == 78){
+    } else if(e.keyCode == 78 && document.getElementById('review-modal').classList.contains('inactive-modal')){
         createDeck();
     }
 
