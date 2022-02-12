@@ -332,15 +332,15 @@ body{
     scroll-behavior: smooth;
 }
 
-#main-create::-webkit-scrollbar {
+#main-create::-webkit-scrollbar, #main-container::-webkit-scrollbar {
     width:16px;
 }
 
-#main-create::-webkit-scrollbar-track {
+#main-create::-webkit-scrollbar-track, #main-container::-webkit-scrollbar-track {
     background: var(--bg-color-2);
 }
 
-#main-create::-webkit-scrollbar-thumb {
+#main-create::-webkit-scrollbar-thumb, #main-container::-webkit-scrollbar-thumb {
     background: var(--theme-color-2);
     border-radius:8px 0 0 8px;
 }
@@ -633,4 +633,22 @@ body{
     text-align:center;
     font-size:11px;
     background:linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) 62%, var(--bg-color-1) 62%);
+}
+
+#review-sidebar > button:last-of-type{
+    position:absolute;
+    bottom:25px;
+    width:200px;
+    font-size:1em;
+    padding:10px 0;
+    border-radius:5px;
+    border:1px solid var(--border-color);
+    background:var(--bg-color-2);
+    transition-duration:250ms;
+    cursor:pointer;
+    color:var(--text-color);
+}
+
+#review-sidebar > button:last-of-type:hover{
+    background:var(--theme-color-1);
 }

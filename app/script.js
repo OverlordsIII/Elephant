@@ -9,6 +9,28 @@ let activeInput = 0;
 
 let controlActive = false;
 
+const Deck = function(){
+    this.desc = "A New Elephant Deck";
+    this.image = "";
+    this.cards = [];
+
+    this.push = function(term, definitionArray){
+        this.cards.push([term, definitionArray]);
+    }
+
+    this.pop = function(index){
+        delete this.cards[index]
+    }
+
+    this.changeImage = function(url) {
+        this.image = url;
+    }
+
+    this.changeDesc = function(desc){
+        this.desc = desc;
+    }
+}
+
 function toggleSettingsModal(){
     if(document.getElementById('settings-modal').classList.contains('active-modal')){
         document.getElementById('settings-modal').classList.remove('active-modal');
@@ -31,7 +53,7 @@ function setMode(){
         document.documentElement.style.setProperty('--bg-color-1', bgRange[1][0]);
         document.documentElement.style.setProperty('--bg-color-2', bgRange[1][1]);
         document.documentElement.style.setProperty('--text-color', "white");
-        document.documentElement.style.setProperty('--border-color', "#272727");
+        document.documentElement.style.setProperty('--border-color', "#101010");
         document.documentElement.style.setProperty('--image-invert', "1");
     } else {
         document.documentElement.style.setProperty('--bg-color-1', bgRange[0][0]);
@@ -111,30 +133,24 @@ function saveChanges(){
     const description = document.querySelector("#create-deck-desc");
     const img = document.querySelector("#create-deck-img");
 
-    let newObject = {
-        desc: description.value,
-        image: img.value,
-        cards:0
-    }
+    let newDeck = new Deck();
+
+    newDeck.changeDesc(description.value);
+    newDeck.changeImage(img.value);
 
     let termsObj = {}
-    let tempList = [];
+    let definitionList = [];
 
     for(let i = 0; i < terms.length; i++){
         for(let j = 0; j < inputDistribution[i]; j++){
-            tempList.push(document.getElementById("dinput-" + (i + 1) + "-" + (j + 1)).value);
+            definitionList.push(document.getElementById("dinput-" + (i + 1) + "-" + (j + 1)).value);
         }
-        termsObj[terms[i].value] = tempList;
-
-        tempList = [];
+        newDeck.push(terms[i].value, definitionList);
+        definitionList = [];
     }
 
-    newObject.cards = termsObj;
-    
-    let newObj = JSON.stringify(newObject)
-
-    localStorage.setItem(title, newObj);
-    console.log(termsObj);
+    localStorage.setItem(title, JSON.stringify(newDeck));
+    console.log(newDeck);
 
     document.getElementById('create-modal').classList.add('inactive-modal');
     document.getElementById('create-modal').classList.remove('active-modal');
@@ -154,6 +170,7 @@ function createDeck(){
 
     document.getElementById('create-deck-name').value = "";
     document.getElementById('create-deck-desc').value = "";
+    document.getElementById('create-deck-img').value = "";
 
     createNewCard(undefined, undefined);
 
@@ -174,8 +191,7 @@ function createDeck(){
 }
 
 function editDeck(index){
-    let object = JSON.parse(JSON.stringify(localStorage.getItem(localStorage.key(index))))
-    object = object.split('"')
+    let object = JSON.parse(localStorage.getItem(localStorage.key(index)));
     inputDistribution = [];
     cardIndex = 0;
 
@@ -187,8 +203,8 @@ function editDeck(index){
     }
 
     document.getElementById('create-deck-name').value = localStorage.key(index);
-    document.getElementById('create-deck-desc').value = object[3];
-    document.getElementById('create-deck-img').value = object[7];
+    document.getElementById('create-deck-desc').value = object.desc;
+    document.getElementById('create-deck-img').value = object.image;
 
     console.log(object);
 
@@ -199,24 +215,8 @@ function editDeck(index){
 
     document.getElementById('main-create').appendChild(newBtn);
 
-    let newTerm = "";
-    let definitions = false;
-    let definitionList = [];
-
-    for(let i = 11; i < object.length; i++){
-        if(object[i] == ':[') {
-            definitions = true;
-        }
-        else if (object[i] == '],' || object[i] == ']}}') {
-            definitions = false;
-            createNewCard(newTerm, definitionList);
-        } else if(definitions == false) {
-            newTerm = object[i];
-            definitionList = [];
-        }
-        else {
-            if(object[i] != ",") definitionList.push(object[i])
-        }
+    for(let i = 0; i < object.cards.length; i++){
+        createNewCard(object.cards[i][0], object.cards[i][1])
     }
 
     document.getElementById('create-header').innerHTML = "Edit An Existing Deck";
@@ -229,6 +229,16 @@ function editDeck(index){
 function deleteDeck(index){
     localStorage.removeItem(localStorage.key(index))
     loadDecks();
+}
+
+function openDeck(index){
+    document.getElementById('review-modal').classList.add('active-modal');
+    document.getElementById('review-modal').classList.remove('inactive-modal');
+}
+
+function closeDeck(){
+    document.getElementById('review-modal').classList.remove('active-modal');
+    document.getElementById('review-modal').classList.add('inactive-modal');
 }
 
 function loadDecks(){
@@ -250,21 +260,21 @@ function loadDecks(){
         let deleteItem = document.createElement('img');
 
         if(localStorage.key(i) != "theme-index"){
-            let object = JSON.parse(JSON.stringify(localStorage.getItem(localStorage.key(i))))
-            object = object.split('"')
+            let deck = JSON.parse(localStorage.getItem(localStorage.key(i)));
 
             header.innerHTML = localStorage.key(i)
-            para.innerHTML = Object.values(object)[3];
+            para.innerHTML = deck.desc;
 
-            if(Object.values(object)[7] == ''){
+            if(deck.image == ''){
                 let randomColor = colorRange[Math.floor(Math.random() * colorRange.length)];
                 imageDiv.style.background = "linear-gradient(135deg, " + randomColor[0] + ", " + randomColor[1] + ")";
             } else {
-                imageDiv.style.backgroundImage = "url('" + Object.values(object)[7] + "')";
+                imageDiv.style.backgroundImage = "url('" + deck.image + "')";
             }
 
             button.innerHTML = "Open Deck"
             edit.innerHTML = "Edit Deck";
+            button.setAttribute('onclick', "openDeck(" + i + ")");
             edit.setAttribute('onclick', "editDeck(" + i + ")");
             deleteItem.src = "icons/delete.svg";
             deleteItem.setAttribute("onclick", "deleteDeck(" + i + ")")
