@@ -223,6 +223,7 @@ function editDeck(index){
     document.getElementById('create-description').innerHTML = "You will now edit an existing Elephant Study Deck that you can access on your computer at any time. Good luck studying!"
     document.getElementById('create-modal').classList.remove('inactive-modal');
     document.getElementById('create-modal').classList.add('active-modal');
+    localStorage.removeItem(localStorage.key(index))
     createModalActive = true;
 }
 
