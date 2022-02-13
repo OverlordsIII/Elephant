@@ -3,6 +3,8 @@ const colorRange = [["#405DE6", "#833AB4", "#354382"], ["#833AB4", "#E1306C", "#
 const bgRange = [["#ffffff", "#f6f7fb"], ["#191919", "#1f1f1f"]];
 
 let inputDistribution = [];
+let reviewTerms = [];
+let reviewDefinitions = [];
 let cardIndex = 0;
 let createModalActive = false;
 let activeInput = 0;
@@ -250,6 +252,50 @@ function loadDecks(){
             document.getElementById('main-container').appendChild(newDiv);
         }
     }
+}
+
+function addReviewBtn(text){
+    let newBtn = document.createElement('button');
+    newBtn.innerHTML = text;
+
+    document.getElementById('flashcard-answers').appendChild(newBtn);
+}
+
+function setupReview(index){
+    const object = JSON.parse(localStorage.getItem(localStorage.key(index)));
+    let tempArray = [];
+
+    reviewTerms = [];
+    reviewDefinitions = [];
+
+    for(let i = 0; i < object.cards.length; i++){
+        let randomNumber = Math.floor(Math.random() * object.cards.length);
+        if(tempArray.includes(randomNumber)) i--
+        else {
+            tempArray.push(randomNumber)
+            reviewTerms.push(object.cards[randomNumber][0]);
+            reviewDefinitions.push(object.cards[randomNumber][1]);
+        }
+    }
+
+    document.getElementById('review-progress').innerHTML = "1/" + object.cards.length + " Flashcards";
+    document.getElementById('review-progress').style.background = "linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) " + 100/(object.cards.length) + "%, var(--bg-color-1) " + 100/(object.cards.length) + "%)";
+
+    document.getElementById('flashcard-header-text').innerHTML = reviewTerms[0];
+
+    let answerSet = [];
+    let randomizedSet = [];
+
+    for(let i = 0; i < reviewDefinitions.length; i++){
+        answerSet.push(reviewDefinitions[i]);
+    }
+
+    for(let i = 0; i < reviewDefinitions.length + Math.floor(Math.random() * 2) + 1; i++){
+        
+        answerSet.push()
+    }
+
+    console.log(reviewTerms, reviewDefinitions);
 }
 
 document.addEventListener('keydown', function(e){

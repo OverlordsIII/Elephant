@@ -632,7 +632,6 @@ body{
     margin-right:10px;
     text-align:center;
     font-size:11px;
-    background:linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) 62%, var(--bg-color-1) 62%);
 }
 
 #review-sidebar > button:last-of-type{

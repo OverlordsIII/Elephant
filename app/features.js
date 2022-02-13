@@ -34,6 +34,7 @@ function setMode(){
 function openDeck(index){
     document.getElementById('review-modal').classList.add('active-modal');
     document.getElementById('review-modal').classList.remove('inactive-modal');
+    setupReview(index)
 }
 
 function closeDeck(){
