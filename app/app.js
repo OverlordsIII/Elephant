@@ -51,6 +51,52 @@ function addDefinition(index, value){
     document.querySelector("#dinput-" + index + "-" + inputDistribution[index - 1]).scrollIntoView();
 }
 
+function deleteCard(index){
+    document.querySelectorAll('.card-div')[index-1].remove();
+
+    inputDistribution.splice(index - 1, 1)
+
+    let oldIndex = 1;
+    let newIndex = 1;
+
+    for(let i = 0; i < document.querySelectorAll('.card-div').length; i++){
+        if(oldIndex == index) oldIndex++;
+
+        document.querySelector('.ddiv-' + oldIndex).classList.add('ddiv-' + newIndex);
+        document.querySelector('.ddiv-' + oldIndex).classList.remove('ddiv-' + oldIndex);
+        document.querySelector('.dbtn-' + oldIndex).classList.add('dbtn-' + newIndex);
+        document.querySelector('.dbtn-' + oldIndex).classList.remove('dbtn-' + oldIndex);
+        document.getElementById('card-index-para-' + oldIndex).innerHTML = newIndex;
+
+        let deleteImg = document.createElement('img');
+
+        deleteImg.src = "./icons/delete.svg";
+        deleteImg.setAttribute('onclick', 'deleteCard(' + newIndex + ')')
+        document.getElementById('card-index-para-' + oldIndex).appendChild(deleteImg);
+
+        document.getElementById('card-index-para-' + oldIndex).id = "card-index-para" + newIndex;
+
+        newIndex++;
+        oldIndex++;
+    }
+
+    oldIndex = 1;
+    newIndex = 1;
+
+    for(let i = 0; i < inputDistribution.length; i++){
+
+        if(oldIndex == index) oldIndex++;
+
+        for(let j = 0; j < inputDistribution[i]; j++){
+            console.log('dinput-' + oldIndex + '-' + j);
+            document.getElementById('dinput-' + oldIndex + '-' + (j + 1)).id = 'dinput-' + newIndex + '-' + (j + 1);
+        }
+
+        oldIndex = 1;
+        newIndex = 1;
+    }
+}
+
 function createNewCard(term, descriptionList){
     let newDiv = document.createElement('div');
     let indexPara = document.createElement('p')
@@ -63,6 +109,14 @@ function createNewCard(term, descriptionList){
 
     cardIndex++;
     indexPara.innerHTML = cardIndex;
+    indexPara.id = "card-index-para-" + cardIndex;
+
+    let deleteImg = document.createElement('img');
+
+    deleteImg.src = "./icons/delete.svg";
+    deleteImg.setAttribute('onclick', 'deleteCard(' + cardIndex + ')')
+    indexPara.appendChild(deleteImg);
+
     termInput.placeholder = "Term"
     termInput.setAttribute('onfocus', "activeInput = " + cardIndex);
     definitionBtn.innerHTML = "+ Add Answer"
@@ -82,6 +136,7 @@ function createNewCard(term, descriptionList){
 
     newDiv.appendChild(indexPara);
     newDiv.appendChild(childDiv);
+    newDiv.classList.add('card-div');
     cardDiv.insertBefore(newDiv, document.querySelector("#new-card-btn"));
 
     if(descriptionList == undefined || descriptionList.length == 0){
@@ -161,6 +216,7 @@ function createDeck(){
 
 function editDeck(index){
     let object = JSON.parse(localStorage.getItem(localStorage.key(index)));
+    //localStorage.removeItem(localStorage.key(index))
     inputDistribution = [];
     cardIndex = 0;
 
@@ -192,7 +248,6 @@ function editDeck(index){
     document.getElementById('create-description').innerHTML = "You will now edit an existing Elephant Study Deck that you can access on your computer at any time. Good luck studying!"
     document.getElementById('create-modal').classList.remove('inactive-modal');
     document.getElementById('create-modal').classList.add('active-modal');
-    localStorage.removeItem(localStorage.key(index))
     createModalActive = true;
 }
 
@@ -312,11 +367,11 @@ document.addEventListener('keydown', function(e){
         }
     } else if(e.keyCode == 78 && document.getElementById('review-modal').classList.contains('inactive-modal')){
         createDeck();
+    } else if(document.getElementById('review-modal').classList.contains('active-modal')){
+        if(e.keyCode == 27) closeDeck();
     }
 
-    if(e.keyCode == 17){
-        controlActive = true;
-    }
+    if(e.keyCode == 17) controlActive = true;
 
 })
 
