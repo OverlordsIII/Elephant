@@ -62,10 +62,13 @@ function deleteCard(index){
     for(let i = 0; i < document.querySelectorAll('.card-div').length; i++){
         if(oldIndex == index) oldIndex++;
 
-        document.querySelector('.ddiv-' + oldIndex).classList.add('ddiv-' + newIndex);
-        document.querySelector('.ddiv-' + oldIndex).classList.remove('ddiv-' + oldIndex);
-        document.querySelector('.dbtn-' + oldIndex).classList.add('dbtn-' + newIndex);
-        document.querySelector('.dbtn-' + oldIndex).classList.remove('dbtn-' + oldIndex);
+        let ddiv = document.querySelector('.ddiv-' + oldIndex);
+        let dbtn = document.querySelector('.dbtn-' + oldIndex);
+
+        ddiv.classList.add('ddiv-' + newIndex);
+        ddiv.classList.remove('ddiv-' + oldIndex);
+        dbtn.classList.add('dbtn-' + newIndex);
+        dbtn.classList.remove('dbtn-' + oldIndex);
         document.getElementById('card-index-para-' + oldIndex).innerHTML = newIndex;
 
         let deleteImg = document.createElement('img');
@@ -74,7 +77,9 @@ function deleteCard(index){
         deleteImg.setAttribute('onclick', 'deleteCard(' + newIndex + ')')
         document.getElementById('card-index-para-' + oldIndex).appendChild(deleteImg);
 
-        document.getElementById('card-index-para-' + oldIndex).id = "card-index-para" + newIndex;
+        document.getElementById('card-index-para-' + oldIndex).id = "card-index-para-" + newIndex;
+
+        console.log(oldIndex, newIndex, document.querySelectorAll('.card-div').length)
 
         newIndex++;
         oldIndex++;
@@ -88,8 +93,8 @@ function deleteCard(index){
         if(oldIndex == index) oldIndex++;
 
         for(let j = 0; j < inputDistribution[i]; j++){
-            console.log('dinput-' + oldIndex + '-' + j);
-            document.getElementById('dinput-' + oldIndex + '-' + (j + 1)).id = 'dinput-' + newIndex + '-' + (j + 1);
+            let dinput = document.getElementById('dinput-' + oldIndex + '-' + (j + 1));
+            dinput.id = 'dinput-' + newIndex + '-' + (j + 1);
         }
 
         oldIndex = 1;
@@ -230,8 +235,6 @@ function editDeck(index){
     document.getElementById('create-deck-name').value = localStorage.key(index);
     document.getElementById('create-deck-desc').value = object.desc;
     document.getElementById('create-deck-img').value = object.image;
-
-    console.log(object);
 
     let newBtn = document.createElement('button');
     newBtn.id = "new-card-btn";
