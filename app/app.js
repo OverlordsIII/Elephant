@@ -10,6 +10,7 @@ let createModalActive = false;
 let activeInput = 0;
 
 let currentOpenDeck;
+let currentVersion = "alpha";
 
 let controlActive = false;
 
@@ -17,6 +18,7 @@ const Deck = function(){
     this.desc = "A New Elephant Deck";
     this.image = "";
     this.cards = [];
+    this.version = currentVersion;
 
     this.push = function(term, definitionArray){
         this.cards.push([term, definitionArray]);
@@ -256,9 +258,17 @@ function loadDecks(){
         let button = document.createElement('button');
         let edit = document.createElement('button');
         let deleteItem = document.createElement('img');
+        let outdated;
 
         if(localStorage.key(i) != "theme-index"){
             let deck = JSON.parse(localStorage.getItem(localStorage.key(i)));
+
+            if(deck.version != currentVersion){
+                outdated = document.createElement('div');
+                outdated.classList.add('outdated-div');
+                outdated.innerHTML = "OUTDATED DECK"
+                console.log('outdated', deck.version)
+            }
 
             header.innerHTML = localStorage.key(i)
             para.innerHTML = deck.desc;
@@ -283,6 +293,7 @@ function loadDecks(){
             textDiv.appendChild(edit);
 
             newDiv.appendChild(imageDiv);
+            if(deck.version != currentVersion) newDiv.appendChild(outdated);
             newDiv.appendChild(textDiv);
 
             newDiv.appendChild(deleteItem);
