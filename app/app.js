@@ -9,6 +9,8 @@ let cardIndex = 0;
 let createModalActive = false;
 let activeInput = 0;
 
+let currentOpenDeck;
+
 let controlActive = false;
 
 const Deck = function(){
@@ -52,54 +54,30 @@ function addDefinition(index, value){
 }
 
 function deleteCard(index){
-    document.querySelectorAll('.card-div')[index-1].remove();
+    const terms = document.querySelectorAll(".term-input");
+    const title = document.querySelector("#create-deck-name").value;
+    const description = document.querySelector("#create-deck-desc");
+    const img = document.querySelector("#create-deck-img");
 
-    inputDistribution.splice(index - 1, 1)
+    let newDeck = new Deck();
 
-    let oldIndex = 1;
-    let newIndex = 1;
+    newDeck.changeDesc(description.value);
+    newDeck.changeImage(img.value);
 
-    for(let i = 0; i < document.querySelectorAll('.card-div').length; i++){
-        if(oldIndex == index) oldIndex++;
+    let definitionList = [];
 
-        let ddiv = document.querySelector('.ddiv-' + oldIndex);
-        let dbtn = document.querySelector('.dbtn-' + oldIndex);
-
-        ddiv.classList.add('ddiv-' + newIndex);
-        ddiv.classList.remove('ddiv-' + oldIndex);
-        dbtn.classList.add('dbtn-' + newIndex);
-        dbtn.classList.remove('dbtn-' + oldIndex);
-        document.getElementById('card-index-para-' + oldIndex).innerHTML = newIndex;
-
-        let deleteImg = document.createElement('img');
-
-        deleteImg.src = "./icons/delete.svg";
-        deleteImg.setAttribute('onclick', 'deleteCard(' + newIndex + ')')
-        document.getElementById('card-index-para-' + oldIndex).appendChild(deleteImg);
-
-        document.getElementById('card-index-para-' + oldIndex).id = "card-index-para-" + newIndex;
-
-        console.log(oldIndex, newIndex, document.querySelectorAll('.card-div').length)
-
-        newIndex++;
-        oldIndex++;
-    }
-
-    oldIndex = 1;
-    newIndex = 1;
-
-    for(let i = 0; i < inputDistribution.length; i++){
-
-        if(oldIndex == index) oldIndex++;
-
+    for(let i = 0; i < terms.length; i++){
         for(let j = 0; j < inputDistribution[i]; j++){
-            let dinput = document.getElementById('dinput-' + oldIndex + '-' + (j + 1));
-            dinput.id = 'dinput-' + newIndex + '-' + (j + 1);
+            definitionList.push(document.getElementById("dinput-" + (i + 1) + "-" + (j + 1)).value);
         }
-
-        oldIndex = 1;
-        newIndex = 1;
+        newDeck.push(terms[i].value, definitionList);
+        definitionList = [];
     }
+
+    newDeck.pop(index - 1);
+
+    localStorage.setItem(title, JSON.stringify(newDeck));
+    editDeck(currentOpenDeck)
 }
 
 function createNewCard(term, descriptionList){
@@ -167,7 +145,6 @@ function saveChanges(){
     newDeck.changeDesc(description.value);
     newDeck.changeImage(img.value);
 
-    let termsObj = {}
     let definitionList = [];
 
     for(let i = 0; i < terms.length; i++){
@@ -221,6 +198,7 @@ function createDeck(){
 
 function editDeck(index){
     let object = JSON.parse(localStorage.getItem(localStorage.key(index)));
+    currentOpenDeck = index;
     //localStorage.removeItem(localStorage.key(index))
     inputDistribution = [];
     cardIndex = 0;
@@ -235,6 +213,8 @@ function editDeck(index){
     document.getElementById('create-deck-name').value = localStorage.key(index);
     document.getElementById('create-deck-desc').value = object.desc;
     document.getElementById('create-deck-img').value = object.image;
+
+    console.log(object);
 
     let newBtn = document.createElement('button');
     newBtn.id = "new-card-btn";
