@@ -22,7 +22,7 @@
 
 body{
     margin:0;
-    font-family:'Outfit';
+    font-family:'Outfit', 'Arial';
     background:var(--bg-color-1);
     color:var(--text-color);
     display:flex;
@@ -604,6 +604,7 @@ body{
     font-size:16px;
     font-weight:100;
     cursor:pointer;
+    color:var(--text-color);
     transition-duration:250ms;
 }
 
@@ -622,7 +623,7 @@ body{
 }
 
 #flashcard-answers > div > button:hover{
-    background:var(--theme-color-1);
+    box-shadow:0 0 15px 0 var(--border-color);
 }
 
 #flashcard-answers > button:last-of-type{
@@ -663,6 +664,9 @@ body{
     width:200px;
     height:15px;
     border:1px solid var(--border-color);
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
     border-radius:10px;
     margin-right:10px;
     text-align:center;

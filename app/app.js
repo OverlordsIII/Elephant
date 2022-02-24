@@ -10,7 +10,7 @@ let createModalActive = false;
 let activeInput = 0;
 
 let currentOpenDeck;
-let currentVersion = "alpha";
+let currentVersion = "alpha-1";
 
 let controlActive = false;
 
@@ -34,6 +34,43 @@ const Deck = function(){
 
     this.changeDesc = function(desc){
         this.desc = desc;
+    }
+
+    this.multipleChoice = function(index){
+        let randomizedArray = [];
+        let correctAnswersIndex = [];
+
+        let indexLength = this.cards[index][1].length;
+        
+        for(let i = 0; i < indexLength; i++){
+            randomizedArray.push(this.cards[index][1][i])
+            correctAnswersIndex.push(this.cards[index][1][i])
+        }
+
+        for(let i = 0; i < indexLength + Math.floor(Math.random() * (indexLength + 2)); i++){
+            let randomInt = Math.floor(Math.random() * this.cards.length)
+            if(randomInt == index) i--
+            else {
+                let item = this.cards[randomInt][1][Math.floor(Math.random() * this.cards[randomInt][1].length)];
+                if(!randomizedArray.includes(item)) randomizedArray.push(item);
+            }
+        }
+
+        for (let i = randomizedArray.length - 1; i > 0; i--) {
+            let j = Math.floor(Math.random() * (i + 1));
+            let temp = randomizedArray[i];
+            randomizedArray[i] = randomizedArray[j];
+            randomizedArray[j] = temp;
+        }
+
+        for(let i = 0; i < randomizedArray.length; i++){
+            if(correctAnswersIndex.includes(randomizedArray[i])){
+                let tempIndex = correctAnswersIndex.indexOf(randomizedArray[i]);
+                correctAnswersIndex[tempIndex] = i;
+            }
+        }
+
+        return [randomizedArray, correctAnswersIndex];
     }
 }
 
@@ -158,7 +195,6 @@ function saveChanges(){
     }
 
     localStorage.setItem(title, JSON.stringify(newDeck));
-    console.log(newDeck);
 
     document.getElementById('create-modal').classList.add('inactive-modal');
     document.getElementById('create-modal').classList.remove('active-modal');
@@ -216,8 +252,6 @@ function editDeck(index){
     document.getElementById('create-deck-desc').value = object.desc;
     document.getElementById('create-deck-img').value = object.image;
 
-    console.log(object);
-
     let newBtn = document.createElement('button');
     newBtn.id = "new-card-btn";
     newBtn.innerHTML = "+ Add New Card"
@@ -266,8 +300,7 @@ function loadDecks(){
             if(deck.version != currentVersion){
                 outdated = document.createElement('div');
                 outdated.classList.add('outdated-div');
-                outdated.innerHTML = "OUTDATED DECK"
-                console.log('outdated', deck.version)
+                outdated.innerHTML = "OUTDATED DECK";
             }
 
             header.innerHTML = localStorage.key(i)
@@ -310,43 +343,6 @@ function addReviewBtn(text){
     document.getElementById('flashcard-answers').appendChild(newBtn);
 }
 
-function setupReview(index){
-    const object = JSON.parse(localStorage.getItem(localStorage.key(index)));
-    let tempArray = [];
-
-    reviewTerms = [];
-    reviewDefinitions = [];
-
-    for(let i = 0; i < object.cards.length; i++){
-        let randomNumber = Math.floor(Math.random() * object.cards.length);
-        if(tempArray.includes(randomNumber)) i--
-        else {
-            tempArray.push(randomNumber)
-            reviewTerms.push(object.cards[randomNumber][0]);
-            reviewDefinitions.push(object.cards[randomNumber][1]);
-        }
-    }
-
-    document.getElementById('review-progress').innerHTML = "1/" + object.cards.length + " Flashcards";
-    document.getElementById('review-progress').style.background = "linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) " + 100/(object.cards.length) + "%, var(--bg-color-1) " + 100/(object.cards.length) + "%)";
-
-    document.getElementById('flashcard-header-text').innerHTML = reviewTerms[0];
-
-    let answerSet = [];
-    let randomizedSet = [];
-
-    for(let i = 0; i < reviewDefinitions.length; i++){
-        answerSet.push(reviewDefinitions[i]);
-    }
-
-    for(let i = 0; i < reviewDefinitions.length + Math.floor(Math.random() * 2) + 1; i++){
-        
-        answerSet.push()
-    }
-
-    console.log(reviewTerms, reviewDefinitions);
-}
-
 document.addEventListener('keydown', function(e){
     if(createModalActive){
         if(e.keyCode == 27){
@@ -385,3 +381,4 @@ window.onload = function(){
 }
 
 loadDecks();
+console.log("Thank you for choosing %cElephant%c... also why are you looking in the console??", "color:#405DE6")
