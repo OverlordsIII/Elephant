@@ -10,7 +10,7 @@ let createModalActive = false;
 let activeInput = 0;
 
 let currentOpenDeck;
-let currentVersion = "alpha-main";
+let currentVersion = "v0.1.0-alpha";
 
 let controlActive = false;
 

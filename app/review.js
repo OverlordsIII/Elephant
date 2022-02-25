@@ -4,11 +4,16 @@ let progress = 0;
 let reviewDeck;
 
 function setupReview(index){
-    reviewCards = []
+    reviewCards = [];
     progress = 0;
 
     const object = JSON.parse(localStorage.getItem(localStorage.key(index)));
     reviewDeck = new Deck();
+
+    if(object.version != currentVersion) {
+        closeDeck();
+        throw new Error('Please update current Deck');
+    }
 
     reviewDeck.cards = object.cards;
 
@@ -23,6 +28,8 @@ function checkAnswer(index){
 
     let answerDiv = document.createElement('div');
     const parentElem = document.querySelectorAll('.flashcard-def-btn')[index];
+
+    if(parentElem.childElementCount > 1) return;
 
     if(correctAnswers.includes(index)){
         correctAnswers[correctAnswers.indexOf(index)] = true;
