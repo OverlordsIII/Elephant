@@ -5,17 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c8b9b7a-897b-4727-ad34-08165be52d02" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/images/patterns/0.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/images/patterns/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/images/patterns/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/images/patterns/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/images/patterns/4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/images/patterns/5.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/features.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/features.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/review.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/review.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -81,6 +73,8 @@
       <workItem from="1646013380195" duration="101000" />
       <workItem from="1646013494631" duration="810000" />
       <workItem from="1646026787126" duration="3964000" />
+      <workItem from="1646037093995" duration="78000" />
+      <workItem from="1646069209770" duration="925000" />
     </task>
     <servers />
   </component>

@@ -517,7 +517,7 @@ body{
     gap:16px;
 }
 
-#settings-theme > div > div{
+#settings-theme > div > div {
     width:25px;
     height:25px;
     border-radius:5px;
@@ -525,13 +525,39 @@ body{
     transition-duration:250ms;
 }
 
-#settings-theme > div > div:hover{
+#settings-background > div > div{
+    width:50px;
+    height:50px;
+    border-radius:10px;
+    cursor:pointer;
+    transition-duration:250ms;
+    background-size:64px;
+    mix-blend-mode:multiply;
+    border:1px solid var(--border-color);
+    z-index:1000;
+}
+
+#settings-background > div{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+#settings-theme > div > div:hover, #settings-background > div > div:hover{
     transform:scale(1.1);
 }
 
 #theme-1 {background:linear-gradient(150deg, #405DE6, #833AB4)}
 #theme-2 {background:linear-gradient(150deg, #833AB4, #E1306C)}
 #theme-3 {background:linear-gradient(150deg, #F56040, #FCAF45)}
+
+#settings-bg-1 {background-image:url("./images/patterns/0.jpg")}
+#settings-bg-2 {background-image:url("./images/patterns/1.jpg")}
+#settings-bg-3 {background-image:url("./images/patterns/2.jpg")}
+#settings-bg-4 {background-image:url("./images/patterns/3.jpg")}
+#settings-bg-5 {background-image:url("./images/patterns/4.jpg")}
+#settings-bg-6 {background-image:url("./images/patterns/5.jpg")}
 
 #settings-mode {
     display:flex;

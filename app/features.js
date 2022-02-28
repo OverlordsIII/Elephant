@@ -35,6 +35,9 @@ function setTheme(themeIndex, background){
     document.documentElement.style.setProperty('--theme-color-1', colorRange[themeIndex][0]);
     document.documentElement.style.setProperty('--theme-color-2', colorRange[themeIndex][1]);
     document.documentElement.style.setProperty('--theme-color-dark', colorRange[themeIndex][2]);
+
+    document.getElementById('custom-picture').backgroundImage = "url('./images/patterns/" + background + ".jpg');"
+
     localStorage.setItem('theme-index', JSON.stringify([currentTheme, darkMode, currentBackground]));
     console.log(localStorage.getItem('theme-index'))
 }
