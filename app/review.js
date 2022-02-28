@@ -10,7 +10,7 @@ function setupReview(index){
     const object = JSON.parse(localStorage.getItem(localStorage.key(index)));
     reviewDeck = new Deck();
 
-    if(object.version != currentVersion) {
+    if(object.version !== currentVersion) {
         closeDeck();
         throw new Error('Please update current Deck');
     }
@@ -42,11 +42,10 @@ function checkAnswer(index){
     let i = 0;
 
     while(complete){
-        if(correctAnswers[i] != true) {
+        if(correctAnswers[i] !== true) {
             complete = false;
             break;
-        }
-        else if(i + 1 == correctAnswers.length) break;
+        } else if(i + 1 === correctAnswers.length) break;
         i++
     }
 
@@ -77,7 +76,7 @@ function setupAnswers(){
     let complete = true;
 
     for(let i = 0; i < reviewCards.length; i++){
-        if(reviewCards[i] != true){
+        if(reviewCards[i] !== true){
             complete = false;
             break;
         }
@@ -89,9 +88,9 @@ function setupAnswers(){
     progressBar.innerHTML = progress + "/" + reviewCards.length + " Flashcards";
     progressBar.style.background = "linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) " + 100 * progress / reviewCards.length + "%, var(--bg-color-1) " + 100 * progress / reviewCards.length + "%)";
 
-    while(randomCard == undefined){
+    while(randomCard === undefined){
         randomCard = Math.floor(Math.random() * reviewCards.length);
-        if(reviewCards[randomCard] == true) randomCard = undefined;
+        if(reviewCards[randomCard] === true) randomCard = undefined;
     }
 
     reviewCards[randomCard] = true;

@@ -1,3 +1,7 @@
+const backgroundNumber = 6;
+let currentTheme = 0
+let currentBackground = 0;
+
 function toggleSettingsModal(){
     if(document.getElementById('settings-modal').classList.contains('active-modal')){
         document.getElementById('settings-modal').classList.remove('active-modal');
@@ -8,15 +12,10 @@ function toggleSettingsModal(){
     }
 }
 
-function setTheme(themeIndex){
-    document.documentElement.style.setProperty('--theme-color-1', colorRange[themeIndex][0]);
-    document.documentElement.style.setProperty('--theme-color-2', colorRange[themeIndex][1]);
-    document.documentElement.style.setProperty('--theme-color-dark', colorRange[themeIndex][2]);
-    localStorage.setItem('theme-index', themeIndex);
-}
+function setTheme(themeIndex, background){
+    let darkMode = document.getElementById('dark-mode-input').checked;
 
-function setMode(){
-    if(document.getElementById("dark-mode-input").checked){
+    if(darkMode){
         document.documentElement.style.setProperty('--bg-color-1', bgRange[1][0]);
         document.documentElement.style.setProperty('--bg-color-2', bgRange[1][1]);
         document.documentElement.style.setProperty('--text-color', "white");
@@ -29,6 +28,15 @@ function setMode(){
         document.documentElement.style.setProperty('--border-color', "lightgray");
         document.documentElement.style.setProperty('--image-invert', "0");
     }
+
+    currentTheme = themeIndex;
+    currentBackground = background;
+
+    document.documentElement.style.setProperty('--theme-color-1', colorRange[themeIndex][0]);
+    document.documentElement.style.setProperty('--theme-color-2', colorRange[themeIndex][1]);
+    document.documentElement.style.setProperty('--theme-color-dark', colorRange[themeIndex][2]);
+    localStorage.setItem('theme-index', JSON.stringify([currentTheme, darkMode, currentBackground]));
+    console.log(localStorage.getItem('theme-index'))
 }
 
 function openDeck(index){

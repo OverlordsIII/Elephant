@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c8b9b7a-897b-4727-ad34-08165be52d02" name="Changes" comment="" />
+    <list default="true" id="3c8b9b7a-897b-4727-ad34-08165be52d02" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/images/patterns/0.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/images/patterns/1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/images/patterns/2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/images/patterns/3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/images/patterns/4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/images/patterns/5.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/features.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/features.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/review.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/style.css" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,21 +30,38 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="25cuYt2Un7p6MJGQz0qJqQznkgk" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="ReaderModeSettings">
     <option name="showLigatures" value="false" />
+  </component>
+  <component name="RunManager">
+    <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/GitHub/app/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.index.html" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -40,10 +73,32 @@
       <updated>1645838751471</updated>
       <workItem from="1645838756601" duration="150000" />
       <workItem from="1645838934281" duration="281000" />
+      <workItem from="1645839401256" duration="367000" />
+      <workItem from="1645846021275" duration="29000" />
+      <workItem from="1645846061376" duration="1000" />
+      <workItem from="1645902230332" duration="235000" />
+      <workItem from="1645995170608" duration="1836000" />
+      <workItem from="1646013380195" duration="101000" />
+      <workItem from="1646013494631" duration="810000" />
+      <workItem from="1646026787126" duration="3964000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

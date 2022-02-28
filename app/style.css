@@ -37,6 +37,7 @@ body{
     padding:25px;
     background:linear-gradient(150deg, var(--theme-color-1), var(--theme-color-2));
     border-right:1px solid var(--border-color);
+    position:relative;
     z-index:2;
 }
 
@@ -51,10 +52,24 @@ body{
     outline:none;
     border-radius:5px;
     cursor:pointer;
+    position:absolute;
 }
 
 #sidebar button:first-of-type:active{
     box-shadow:inset 0 0 10px 0 black;
+}
+
+#custom-picture{
+    background-image:url("./images/patterns/4.jpg");
+    background-repeat:repeat;
+    background-size:512px;
+    width:250px;
+    height:100vh;
+    position:absolute;
+    mix-blend-mode: multiply;
+    top:0;
+    left:0;
+    opacity:0.25;
 }
 
 #parent-container{

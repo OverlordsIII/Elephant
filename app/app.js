@@ -345,39 +345,48 @@ function addReviewBtn(text){
 
 document.addEventListener('keydown', function(e){
     if(createModalActive){
-        if(e.keyCode == 27){
+        if(e.keyCode === 27){
             closeCreateModal();
-        } else if(e.keyCode == 13){
+        } else if(e.keyCode === 13){
             if(controlActive) saveChanges();
             else createNewCard(undefined, undefined);
-        } else if(e.keyCode == 68 && controlActive){
+        } else if(e.keyCode === 68 && controlActive){
             e.preventDefault();
             e.stopPropagation();
             addDefinition(activeInput);
         }
-    } else if(e.keyCode == 78 && document.getElementById('review-modal').classList.contains('inactive-modal')){
+    } else if(e.keyCode === 78 && document.getElementById('review-modal').classList.contains('inactive-modal')){
         createDeck();
     } else if(document.getElementById('review-modal').classList.contains('active-modal')){
-        if(e.keyCode == 27) closeDeck();
+        if(e.keyCode === 27) closeDeck();
     }
 
-    if(e.keyCode == 17) controlActive = true;
+    if(e.keyCode === 17) controlActive = true;
 
 })
 
 document.addEventListener('keyup', function(e){
-    if(e.keyCode == 17){
+    if(e.keyCode === 17){
         controlActive = false;
     }
 })
 
 window.onload = function(){
-    let theme = localStorage.getItem('theme-index');
-    theme = theme ?? 0;
+    let mainTheme = localStorage.getItem('theme-index');
+    console.log(mainTheme);
+    try{
+        mainTheme = JSON.parse(mainTheme)
+    } catch {
+        mainTheme = [0, true, 2]
+    }
 
-    localStorage.setItem('theme-index', theme);
+    if(mainTheme[1] === true){
+        document.getElementById('dark-mode-input').checked = true;
+    }
 
-    setTheme(localStorage.getItem('theme-index'));
+    localStorage.setItem('theme-index', JSON.stringify(mainTheme));
+
+    setTheme(mainTheme[0], mainTheme[2]);
 }
 
 loadDecks();

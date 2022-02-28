@@ -14,18 +14,21 @@
     <script src="review.js" defer></script>
 </head>
 <body>
+<div id="important-modal" class="active-modal">
+
+</div>
     <div id="settings-modal" class="inactive-modal">
         <div id="settings-theme">
             <h2>Update Theme</h2>
             <div>
-                <div id="theme-1" onclick="setTheme(0)"></div>
-                <div id="theme-2" onclick="setTheme(1)"></div>
-                <div id="theme-3" onclick="setTheme(2)"></div>
+                <div id="theme-1" onclick="setTheme(0, currentBackground)"></div>
+                <div id="theme-2" onclick="setTheme(1, currentBackground)"></div>
+                <div id="theme-3" onclick="setTheme(2, currentBackground)"></div>
             </div>
         </div>
         <div id="settings-mode">
             <h2>Dark Mode?</h2>
-            <input type="checkbox" id="dark-mode-input" onchange="setMode()">
+            <input type="checkbox" id="dark-mode-input" onchange="setTheme(currentTheme, currentBackground)">
         </div>
     </div>
     <div id="review-modal" class="inactive-modal">
@@ -75,6 +78,7 @@
         </div>
     </div>
     <div id="sidebar">
+        <div id="custom-picture"></div>
         <button onclick="createDeck()">+ Create Deck</button>
     </div>
     <div id="parent-container">
@@ -95,7 +99,7 @@
                     <img src="icons/notif.svg" alt="Bro" id="notifs">
                 </div>
                 <div class="navbar-icon-btn" onclick="toggleSettingsModal()">
-                    <img src="icons/settings.svg" alt="Bro" id="inventory">
+                    <img src="icons/settings.svg" alt="Bro" id="settings">
                 </div>
             </div>
         </div>
