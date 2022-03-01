@@ -4,14 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c8b9b7a-897b-4727-ad34-08165be52d02" name="Changes" comment="Am committing from workspace itself">
+    <list default="true" id="3c8b9b7a-897b-4727-ad34-08165be52d02" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/features.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/features.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/images/patterns/3.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/images/patterns/3.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/images/patterns/5.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/app/images/patterns/5.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/review.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/review.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -91,7 +85,8 @@
       <workItem from="1646079672979" duration="462000" />
       <workItem from="1646083477124" duration="385000" />
       <workItem from="1646084030278" duration="977000" />
-      <workItem from="1646100318293" duration="2683000" />
+      <workItem from="1646100318293" duration="2746000" />
+      <workItem from="1646114742449" duration="311000" />
     </task>
     <task id="LOCAL-00001" summary="Am committing from workspace itself">
       <created>1646070279238</created>
@@ -100,7 +95,14 @@
       <option name="project" value="LOCAL" />
       <updated>1646070279238</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Working notification Modal">
+      <created>1646103075216</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1646103075216</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -120,6 +122,7 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="Am committing from workspace itself" />
-    <option name="LAST_COMMIT_MESSAGE" value="Am committing from workspace itself" />
+    <MESSAGE value="Working notification Modal" />
+    <option name="LAST_COMMIT_MESSAGE" value="Working notification Modal" />
   </component>
 </project>
