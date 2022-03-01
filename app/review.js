@@ -82,7 +82,11 @@ function setupAnswers(){
         }
     }
 
-    if(complete) return;
+    if(complete){
+        closeDeck();
+        popupModal(0)
+        return;
+    }
 
     const progressBar = document.getElementById('review-progress');
     progressBar.innerHTML = progress + "/" + reviewCards.length + " Flashcards";

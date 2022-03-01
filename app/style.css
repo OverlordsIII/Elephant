@@ -18,6 +18,9 @@
     --text-color:black;
     --border-color:lightgray;
     --image-invert:0;
+
+    --popup-color-1:#000;
+    --popup-color-2:#000;
 }
 
 body{
@@ -730,4 +733,105 @@ body{
 
 #review-sidebar > button:last-of-type:hover{
     background:var(--theme-color-1);
+}
+
+#popup-modal{
+    flex-direction:row;
+    position:absolute;
+    z-index:1000;
+    justify-content:center;
+    align-items:center;
+    width:100vw;
+    height:100vh;
+    background:rgba(0,0,0,0.25)
+}
+
+.popup-image-bg{
+    width:150px;
+    height:300px;
+    background:linear-gradient(135deg, var(--popup-color-1), var(--popup-color-2));
+    border-radius:60px 0 0 60px;
+    overflow:hidden;
+}
+
+.popup-image{
+    background-image:url("./images/patterns/0.jpg");
+    background-size:128px;
+    background-repeat:repeat;
+    width:150px;
+    height:300px;
+    mix-blend-mode:multiply;
+    opacity:0.25;
+}
+
+.popup-main{
+    padding:25px;
+    background:white;
+    height:250px;
+    border-radius:0 60px 60px 0;
+    width:350px;
+    position:relative;
+}
+
+.popup-main > div:first-of-type{
+    font-size:16px;
+    font-weight:300;
+    position:absolute;
+    background:var(--bg-color-2);
+    border:1px solid var(--border-color);
+    width:25px;
+    height:25px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    border-radius:50%;
+    transition-duration:250ms;
+    color:gray;
+    cursor:pointer;
+    right:25px;
+}
+
+.popup-main > div:first-of-type:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 10px 0 var(--border-color);
+}
+
+.popup-main > h1{
+    background: -webkit-linear-gradient(135deg, var(--popup-color-1), var(--popup-color-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size:30px;
+    margin: 0 0 12px;
+}
+
+.popup-main > h2{
+    font-size:16px;
+    font-weight:700;
+    margin: 0 0 6px;
+}
+
+.popup-main > p{
+    font-size:12px;
+    color:black;
+    margin:0;
+}
+
+.popup-main > button{
+    margin:12px 0;
+    width:350px;
+    background:var(--bg-color-2);
+    border:1px solid var(--border-color);
+    height:24px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:12px;
+}
+
+.popup-main::after{
+    content:'- The Elephant Team';
+    position:absolute;
+    color:gray;
+    bottom:5px;
+    right:75px;
 }

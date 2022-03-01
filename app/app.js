@@ -377,7 +377,7 @@ window.onload = function(){
     try{
         mainTheme = JSON.parse(mainTheme)
     } catch {
-        mainTheme = [0, true, 2]
+        mainTheme = [0, true, 4]
     }
 
     if(mainTheme[1] === true){

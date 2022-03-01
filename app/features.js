@@ -12,6 +12,42 @@ function toggleSettingsModal(){
     }
 }
 
+function popupModal(index){
+    //Index Legend: 0 = Flashcard Deck Complete
+
+    document.getElementById('popup-modal').classList.remove('inactive-modal');
+    document.getElementById('popup-modal').classList.add('active-modal');
+
+    let elem = document.querySelector('.popup-main')
+    let child = elem.lastElementChild;
+
+    while (child) {
+        elem.removeChild(child);
+        child = elem.lastElementChild;
+    }
+
+    let newCloseBtn = document.createElement('div');
+
+    newCloseBtn.innerHTML = "X";
+    newCloseBtn.setAttribute('onclick', "document.getElementById('popup-modal').classList.add('inactive-modal'); document.getElementById('popup-modal').classList.remove('active-modal')")
+
+    elem.appendChild(newCloseBtn);
+
+    if(index === 0){
+        document.documentElement.style.setProperty('--popup-color-1', '#51E640');
+        document.documentElement.style.setProperty('--popup-color-2', '#3AB489');
+
+        let newHeader = document.createElement('h1');
+        let newPara = document.createElement('p')
+
+        newHeader.innerHTML = "Congratulations";
+        newPara.innerHTML = "You successfully completed this deck. Better revise it again, you know, just to be safe ;)";
+
+        elem.appendChild(newHeader);
+        elem.appendChild(newPara);
+    }
+}
+
 function setTheme(themeIndex, background){
     let darkMode = document.getElementById('dark-mode-input').checked;
 
@@ -36,7 +72,7 @@ function setTheme(themeIndex, background){
     document.documentElement.style.setProperty('--theme-color-2', colorRange[themeIndex][1]);
     document.documentElement.style.setProperty('--theme-color-dark', colorRange[themeIndex][2]);
 
-    document.getElementById('custom-picture').backgroundImage = "url('./images/patterns/" + background + ".jpg');"
+    document.getElementById('custom-picture').style.backgroundImage = "url('./images/patterns/" + background + ".jpg')";
 
     localStorage.setItem('theme-index', JSON.stringify([currentTheme, darkMode, currentBackground]));
     console.log(localStorage.getItem('theme-index'))
