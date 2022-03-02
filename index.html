@@ -8,7 +8,7 @@
 
     <link rel="icon" href="icons/elephant.png">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+    <script src="script.js" defer></script>
 </head>
 <body>
     <div id="navbar">
@@ -17,6 +17,9 @@
             <h1>Elephant</h1>
             <p>The Better Flashcards</p>
         </div>
+        <p class="navbar-para">About Me</p>
+        <p class="navbar-para">Versions</p>
+        <p class="navbar-para">Contribute</p>
         <div id="navbar-right">
             <img src="icons/svgs/notifs.svg" alt="">
             <div id="profile">
@@ -30,15 +33,10 @@
     <div id="main-container">
         <div id="main-flashcard">
             <div>
-                <h1>Evaluate the following expression:</h1>
-                <h1 class="math">e<sup>iπ</sup> + 1</h1>
+                <h1 id="flashcard-header"></h1>
             </div>
-            <div>
-                <h6 class="math">cos(π/2) + isin(π/2)</h6>
-                <h6 class="math">sin(3π/2) + icos(3π/2)</h6>
-                <h6 class="math">0</h6>
-                <h6 class="math">1</h6>
-                <h6 class="skip-btn">Skip Question</h6>
+            <div id="flashcard-main-answers">
+                <bruh></bruh>
             </div>
         </div>
     </div>

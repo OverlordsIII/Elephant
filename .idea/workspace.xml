@@ -4,14 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3c8b9b7a-897b-4727-ad34-08165be52d02" name="Changes" comment="">
+    <list default="true" id="3c8b9b7a-897b-4727-ad34-08165be52d02" name="Changes" comment="Working notification Modal">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/review.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/style.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -51,12 +62,20 @@
   <component name="ReaderModeSettings">
     <option name="showLigatures" value="false" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JavaScript Debug.index.html (2)">
+    <configuration name="index.html (1)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/style.css/app/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
+    <configuration name="index.html (2)" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/style.css/index.html" useBuiltInWebServerPort="true">
+      <method v="2" />
+    </configuration>
     <configuration name="index.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/GitHub/app/index.html" useBuiltInWebServerPort="true">
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JavaScript Debug.index.html (2)" />
+        <item itemvalue="JavaScript Debug.index.html (1)" />
         <item itemvalue="JavaScript Debug.index.html" />
       </list>
     </recent_temporary>
@@ -86,7 +105,15 @@
       <workItem from="1646083477124" duration="385000" />
       <workItem from="1646084030278" duration="977000" />
       <workItem from="1646100318293" duration="2746000" />
-      <workItem from="1646114742449" duration="311000" />
+      <workItem from="1646114742449" duration="490000" />
+      <workItem from="1646115458722" duration="377000" />
+      <workItem from="1646120831555" duration="606000" />
+      <workItem from="1646155376478" duration="324000" />
+      <workItem from="1646155734473" duration="2107000" />
+      <workItem from="1646164522449" duration="1779000" />
+      <workItem from="1646172757289" duration="2486000" />
+      <workItem from="1646176505650" duration="705000" />
+      <workItem from="1646187698803" duration="2945000" />
     </task>
     <task id="LOCAL-00001" summary="Am committing from workspace itself">
       <created>1646070279238</created>

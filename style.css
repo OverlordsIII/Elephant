@@ -4,12 +4,12 @@
 :root{
     --dark-blue:#004153;
     --blue:#335762;
-    --light-blue:#e0f4fe;
+    --light-blue:#f6f7fb;
 }
 
 body{
     margin:0;
-    font-family:'Outfit';
+    font-family:'Outfit', sans-serif;
     background:white;
 }
 
@@ -22,6 +22,18 @@ body{
     height:70px;
     position:relative;
     background:white;
+}
+
+.navbar-para{
+    margin:0 15px;
+    font-size:14px;
+    width:100px;
+    text-align:center;
+    background:var(--light-blue);
+    padding:5px;
+    border-radius:10px;
+    border:1px solid lightgray;
+    cursor:pointer;
 }
 
 #navbar > img:first-of-type{
@@ -72,7 +84,7 @@ body{
 }
 
 #profile {
-    background:#eee;
+    background:var(--light-blue);
     padding:5px 10px 5px 50px;
     overflow:hidden;
     border-radius:10px;
@@ -114,7 +126,7 @@ body{
 
 #main-flashcard{
     width:90vmin;
-    height:50vmin;
+    min-height:50vmin;
     background:white;
     position:absolute;
     bottom:-15vmin;
@@ -134,6 +146,7 @@ body{
     align-items:center;
     justify-content:center;
     text-align:center;
+    padding:25px;
 }
 
 #main-flashcard > div:first-of-type{
@@ -144,7 +157,7 @@ body{
 
 #main-flashcard > div:last-of-type{
     width:55vmin;
-    height:50vmin;
+    min-height:50vmin;
 }
 
 #main-flashcard > div > h1{
@@ -166,6 +179,7 @@ body{
     transition-duration:500ms;
     margin:5px 0;
     border-radius:5px;
+    cursor:pointer;
 }
 
 #main-flashcard > div > h6:not(.skip-btn){
@@ -206,15 +220,13 @@ body{
 }
 
 #about-elephant > div:first-of-type > p{
-    margin:0;
-    margin-top:5px;
+    margin: 5px 0 0;
     font-size:12px;
     font-weight:300;
 }
 
 #about-elephant > div:first-of-type > ul{
-    margin:0;
-    margin-top:5px;
+    margin: 5px 0 0;
     font-size:12px;
     font-weight:300;
 }

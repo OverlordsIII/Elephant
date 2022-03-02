@@ -19,6 +19,7 @@ function setupReview(index){
 
     for(let i = 0; i < object.cards.length; i++){
         reviewCards.push(false);
+        if(i > 1000000) return;
     }
 
     setupAnswers();
