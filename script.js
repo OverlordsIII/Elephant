@@ -3,7 +3,7 @@ const randomCongrats = [
     "Nice, Now Get The Next One",
     "I Thought That Would Stump You",
     "You'll never get this next one!",
-    "Quite Possible The Greatest Thing I've Ever Seen",
+    "Quite Possibly The Greatest Thing I've Ever Seen",
     "You Got Lucky There",
     "That was an Easy Question!"
 ]
