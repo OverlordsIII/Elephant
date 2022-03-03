@@ -25,7 +25,7 @@
 
 body{
     margin:0;
-    font-family:'Outfit', 'Arial';
+    font-family: 'Outfit', sans-serif;
     background:var(--bg-color-1);
     color:var(--text-color);
     display:flex;
@@ -180,14 +180,34 @@ body{
 
 #main-container > div div:last-of-type h1{
     font-size:1.5em;
+    width:130px;
     margin:0;
+}
+
+#main-container > div div:last-of-type div{
+    position:absolute;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    padding:0;
+    width:35px;
+    height:35px;
+    border-radius:10px;
+    background:var(--bg-color-2);
+    top:150px;
+    right:10px;
+}
+
+#main-container > div div:last-of-type div img{
+    filter:invert(var(--image-invert));
+    height:25px;
 }
 
 #main-container > div div:last-of-type p {
     font-size:1em;
     line-height:12px;
     color:gray;
-    margin:0;
     margin:10px 0;
 }
 
@@ -834,4 +854,28 @@ body{
     color:gray;
     bottom:5px;
     right:75px;
+}
+
+#subject-input{
+    outline:none;
+    width:250px;
+    height:25px;
+    background:var(--bg-color-2);
+    border-radius:5px;
+    color:gray;
+    border:none;
+}
+
+select option:hover,
+select option:focus,
+select option:active {
+    background: linear-gradient(#000000, #000000);
+    background-color: #000000 !important; /* for IE */
+    color: #ffed00 !important;
+}
+
+select option:checked {
+    background: linear-gradient(#d6d6d6, #d6d6d6);
+    background-color: #d6d6d6 !important; /* for IE */
+    color: #000000 !important;
 }

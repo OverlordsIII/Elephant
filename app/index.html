@@ -14,18 +14,12 @@
     <script src="review.js" defer></script>
 </head>
 <body>
-<div id="popup-modal" class="inactive-modal">
-    <div class="popup-image-bg">
-        <div class="popup-image"></div>
+    <div id="popup-modal" class="inactive-modal">
+        <div class="popup-image-bg">
+            <div class="popup-image"></div>
+        </div>
+        <div class="popup-main"></div>
     </div>
-    <div class="popup-main">
-        <div>X</div>
-        <h1>Congratulations</h1>
-        <h2>Time Complete: Your Mom</h2>
-        <p>You completed this deck. Review it again to make sure it stuck!</p>
-        <button>Review Deck Again</button>
-    </div>
-</div>
     <div id="settings-modal" class="inactive-modal">
         <div id="settings-theme">
             <h2>Update Theme</h2>
@@ -92,6 +86,16 @@
                 <input type="text" placeholder="Deck Name" id="create-deck-name">
                 <textarea name="" cols="30" rows="10" placeholder="Description" id="create-deck-desc"></textarea>
                 <input type="text" placeholder="Deck Image" id="create-deck-img">
+                <select id="subject-input">
+                    <option value="history">History</option>
+                    <option value="language">English</option>
+                    <option value="math">Mathematics</option>
+                    <option value="science">Science</option>
+                    <option value="money">Finance</option>
+                    <option value="foreign">World Language</option>
+                    <option value="other">Other</option>
+                    <option value="disabled" selected disabled hidden>Please Select a Subject</option>
+                </select>
                 <button id="save-card" onclick="saveChanges()">Save Changes</button>
                 <button id="cancel-card" onclick="closeCreateModal()">Cancel Changes</button>
             </div>

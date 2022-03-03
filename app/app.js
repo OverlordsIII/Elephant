@@ -10,7 +10,7 @@ let createModalActive = false;
 let activeInput = 0;
 
 let currentOpenDeck;
-let currentVersion = "v0.1.0-alpha-1";
+let currentVersion = "v0.1.0-alpha-2";
 
 let controlActive = false;
 
@@ -19,6 +19,7 @@ const Deck = function(){
     this.image = "";
     this.cards = [];
     this.version = currentVersion;
+    this.subject = "other"
 
     this.push = function(term, definitionArray){
         this.cards.push([term, definitionArray]);
@@ -26,14 +27,6 @@ const Deck = function(){
 
     this.pop = function(index){
         delete this.cards[index]
-    }
-
-    this.changeImage = function(url) {
-        this.image = url;
-    }
-
-    this.changeDesc = function(desc){
-        this.desc = desc;
     }
 
     this.multipleChoice = function(index){
@@ -147,9 +140,7 @@ function createNewCard(term, descriptionList){
     definitionBtn.classList.add("dbtn-" + cardIndex);
     termInput.classList.add("term-input")
 
-    if(term != undefined){
-        termInput.value = term;
-    }
+    if(term !== undefined) termInput.value = term;
 
     definitionDiv.appendChild(definitionBtn);
 
@@ -178,11 +169,14 @@ function saveChanges(){
     const title = document.querySelector("#create-deck-name").value;
     const description = document.querySelector("#create-deck-desc");
     const img = document.querySelector("#create-deck-img");
+    const subjectElem = document.getElementById('subject-input');
 
     let newDeck = new Deck();
 
-    newDeck.changeDesc(description.value);
-    newDeck.changeImage(img.value);
+    newDeck.desc = description.value;
+    newDeck.image = img.value;
+    newDeck.subject = subjectElem.options[subjectElem.selectedIndex].value;
+
 
     let definitionList = [];
 
@@ -199,7 +193,7 @@ function saveChanges(){
     document.getElementById('create-modal').classList.add('inactive-modal');
     document.getElementById('create-modal').classList.remove('active-modal');
     createModalActive = false;
-    loadDecks();
+    loadDecks(undefined);
 }
 
 function createDeck(){
@@ -234,6 +228,11 @@ function createDeck(){
     createModalActive = true;
 }
 
+function deleteDeck(index){
+    localStorage.removeItem(localStorage.key(index))
+    loadDecks(undefined);
+}
+
 function editDeck(index){
     let object = JSON.parse(localStorage.getItem(localStorage.key(index)));
     currentOpenDeck = index;
@@ -251,6 +250,7 @@ function editDeck(index){
     document.getElementById('create-deck-name').value = localStorage.key(index);
     document.getElementById('create-deck-desc').value = object.desc;
     document.getElementById('create-deck-img').value = object.image;
+    document.getElementById('subject-input').value = object.subject;
 
     let newBtn = document.createElement('button');
     newBtn.id = "new-card-btn";
@@ -270,12 +270,7 @@ function editDeck(index){
     createModalActive = true;
 }
 
-function deleteDeck(index){
-    localStorage.removeItem(localStorage.key(index))
-    loadDecks();
-}
-
-function loadDecks(){
+function loadDecks(sort){
     let child = document.getElementById('main-container').lastElementChild;
 
     while (child) {
@@ -288,25 +283,29 @@ function loadDecks(){
         let imageDiv = document.createElement('div');
         let textDiv = document.createElement('div');
         let header = document.createElement('h1');
+        let subjectDiv = document.createElement('div');
+        let subject = document.createElement('img')
         let para = document.createElement('p');
         let button = document.createElement('button');
         let edit = document.createElement('button');
         let deleteItem = document.createElement('img');
         let outdated;
 
-        if(localStorage.key(i) != "theme-index"){
-            let deck = JSON.parse(localStorage.getItem(localStorage.key(i)));
+        let deck = JSON.parse(localStorage.getItem(localStorage.key(i)));
 
-            if(deck.version != currentVersion){
+        if(localStorage.key(i) !== "theme-index" && (deck.subject === sort || sort === undefined)) {
+
+            if (deck.version !== currentVersion) {
                 outdated = document.createElement('div');
                 outdated.classList.add('outdated-div');
                 outdated.innerHTML = "OUTDATED DECK";
             }
 
             header.innerHTML = localStorage.key(i)
+            subject.src = "./icons/subjects/" + deck.subject + ".svg";
             para.innerHTML = deck.desc;
 
-            if(deck.image == ''){
+            if (deck.image === '') {
                 let randomColor = colorRange[Math.floor(Math.random() * colorRange.length)];
                 imageDiv.style.background = "linear-gradient(135deg, " + randomColor[0] + ", " + randomColor[1] + ")";
             } else {
@@ -320,13 +319,16 @@ function loadDecks(){
             deleteItem.src = "icons/delete.svg";
             deleteItem.setAttribute("onclick", "deleteDeck(" + i + ")")
 
+            subjectDiv.appendChild(subject);
+
             textDiv.appendChild(header);
+            textDiv.appendChild(subjectDiv)
             textDiv.appendChild(para);
             textDiv.appendChild(button);
             textDiv.appendChild(edit);
 
             newDiv.appendChild(imageDiv);
-            if(deck.version != currentVersion) newDiv.appendChild(outdated);
+            if (deck.version !== currentVersion) newDiv.appendChild(outdated);
             newDiv.appendChild(textDiv);
 
             newDiv.appendChild(deleteItem);
@@ -389,5 +391,5 @@ window.onload = function(){
     setTheme(mainTheme[0], mainTheme[2]);
 }
 
-loadDecks();
+loadDecks(undefined);
 console.log("Thank you for choosing %cElephant%c... also why are you looking in the console??", "color:#405DE6")

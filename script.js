@@ -84,8 +84,8 @@ function createRandomProfilePic(){
 }
 
 function initialize(){
-    getData();
     createRandomProfilePic();
+    getData().then(r => console.log("%cTrivia Question Request Successful", "color:lightgreen;"));
 }
 
 function shuffleArray(array) {
