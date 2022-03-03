@@ -5,12 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3c8b9b7a-897b-4727-ad34-08165be52d02" name="Changes" comment="Working notification Modal">
-      <change afterPath="$PROJECT_DIR$/app/icons/subjects/disabled.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/icons/subjects/music.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/icons/subjects/sports.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/icons/subjects/work.svg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/app/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/app/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/script.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +117,8 @@
       <workItem from="1646252289471" duration="1862000" />
       <workItem from="1646256199885" duration="300000" />
       <workItem from="1646273379645" duration="888000" />
-      <workItem from="1646274293137" duration="2901000" />
+      <workItem from="1646274293137" duration="2970000" />
+      <workItem from="1646277339452" duration="1012000" />
     </task>
     <task id="LOCAL-00001" summary="Am committing from workspace itself">
       <created>1646070279238</created>
