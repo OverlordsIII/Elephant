@@ -12,6 +12,10 @@ function toggleSettingsModal(){
     }
 }
 
+function importDeck(){
+
+}
+
 function popupModal(index){
     //Index Legend: 0 = Flashcard Deck Complete
 

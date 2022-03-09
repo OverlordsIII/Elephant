@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Elephant</title>
+
+    <link rel="icon" href="../icons/elephant.png">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div id="sidebar">
+        <div id="custom-picture"></div>
+        <button>+ Add Task</button>
+    </div>
+    <div id="parent-container">
+        <div id="navbar">
+            <div id="logo-div">
+                <img src="../icons/elephant.png" alt="">
+                <div>
+                    <h1>Elephant</h1>
+                    <p>The Better Student Hub</p>
+                </div>
+            </div>
+            <div id="navbar-right">
+                <div id="progress-bar"></div>
+                <div class="navbar-icon-btn" onclick="toggleSettingsModal()">
+                    <img src="../icons/settings.svg" alt="Bro" id="settings">
+                </div>
+            </div>
+        </div>
+        <div id="main-container"></div>
+    </div>
+</body>
+</html>

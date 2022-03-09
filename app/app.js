@@ -67,6 +67,10 @@ const Deck = function(){
     }
 }
 
+document.getElementById('import-file-trigger').onclick = function(){
+    document.getElementById('import-file-upload').click();
+}
+
 function addDefinition(index, value){
     let newInput = document.createElement('input');
 
@@ -194,6 +198,14 @@ function saveChanges(){
     document.getElementById('create-modal').classList.remove('active-modal');
     createModalActive = false;
     loadDecks(undefined);
+}
+
+function exportData() {
+    saveChanges()
+
+    let blob = new Blob([localStorage.getItem(document.getElementById('create-deck-name').value)],
+        { type: ".edeck;charset=utf-8" });
+    saveAs(blob, document.getElementById('create-deck-name').value + ".edeck");
 }
 
 function createDeck(){

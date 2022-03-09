@@ -9,6 +9,8 @@
     <link rel="icon" href="../icons/elephant.png">
     <link rel="stylesheet" href="style.css">
 
+    <script src="dependencies/FileSaver.js" defer></script>
+
     <script src="app.js" defer></script>
     <script src="features.js" defer></script>
     <script src="review.js" defer></script>
@@ -19,6 +21,19 @@
             <div class="popup-image"></div>
         </div>
         <div class="popup-main"></div>
+    </div>
+    <div id="import-deck-modal" class="active-modal">
+        <div>
+            <div id="import-deck-modal-header"></div>
+            <div id="import-deck-modal-body">
+                <h1>Import Elephant Deck</h1>
+                <p>Accepted File Types: EDECK</p>
+                <button id="import-file-trigger">Upload Edeck File</button>
+                <input type="file" id="import-file-upload" accept=".edeck">
+                <h6 id="import-deck-modal-file">No File Selected</h6>
+                <button>Import Deck</button>
+            </div>
+        </div>
     </div>
     <div id="settings-modal" class="inactive-modal">
         <div id="settings-theme">
@@ -100,13 +115,16 @@
                     <option value="disabled" selected disabled hidden>Please Select a Subject</option>
                 </select>
                 <button id="save-card" onclick="saveChanges()">Save Changes</button>
+                <button id="export-card" onclick="exportData()">Export Deck</button>
                 <button id="cancel-card" onclick="closeCreateModal()">Cancel Changes</button>
             </div>
         </div>
     </div>
+    <div id="schedule-modal" class="inactive-modal"></div>
     <div id="sidebar">
         <div id="custom-picture"></div>
         <button onclick="createDeck()">+ Create Deck</button>
+        <button onclick="createDeck()">+ Import Deck</button>
     </div>
     <div id="parent-container">
         <div id="navbar">
@@ -114,11 +132,17 @@
                 <img src="../icons/elephant.png" alt="">
                 <div>
                     <h1>Elephant</h1>
-                    <p>The Better Flashcards</p>
+                    <p>The Better Student Hub</p>
                 </div>
             </div>
             <div id="navbar-right">
                 <div id="progress-bar"></div>
+                <!--<div class="navbar-icon-btn">
+                    <img src="icons/apps.svg" alt="Bro" id="applications">
+                </div>-->
+                <div class="navbar-icon-btn">
+                    <img src="icons/code.svg" alt="Bro" id="starmap" onclick="window.open('https://trello.com/b/Ha1fXXq2/elephant-starmap')">
+                </div>
                 <div class="navbar-icon-btn">
                     <img src="icons/inventory.svg" alt="Bro" id="inventory">
                 </div>
