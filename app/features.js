@@ -13,7 +13,13 @@ function toggleSettingsModal(){
 }
 
 function importDeck(){
-
+    if(document.getElementById('import-deck-modal').classList.contains('active-modal')){
+        document.getElementById('import-deck-modal').classList.remove('active-modal');
+        document.getElementById('import-deck-modal').classList.add('inactive-modal');
+    } else {
+        document.getElementById('import-deck-modal').classList.add('active-modal');
+        document.getElementById('import-deck-modal').classList.remove('inactive-modal');
+    }
 }
 
 function popupModal(index){
@@ -79,7 +85,6 @@ function setTheme(themeIndex, background){
     document.getElementById('custom-picture').style.backgroundImage = "url('./images/patterns/" + background + ".jpg')";
 
     localStorage.setItem('theme-index', JSON.stringify([currentTheme, darkMode, currentBackground]));
-    console.log(localStorage.getItem('theme-index'))
 }
 
 function openDeck(index){

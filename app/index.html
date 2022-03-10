@@ -22,16 +22,16 @@
         </div>
         <div class="popup-main"></div>
     </div>
-    <div id="import-deck-modal" class="active-modal">
+    <div id="import-deck-modal" class="inactive-modal">
         <div>
-            <div id="import-deck-modal-header"></div>
+            <div id="import-deck-modal-header"><p onclick="importDeck()">X</p></div>
             <div id="import-deck-modal-body">
                 <h1>Import Elephant Deck</h1>
                 <p>Accepted File Types: EDECK</p>
                 <button id="import-file-trigger">Upload Edeck File</button>
                 <input type="file" id="import-file-upload" accept=".edeck">
                 <h6 id="import-deck-modal-file">No File Selected</h6>
-                <button>Import Deck</button>
+                <button onclick="uploadDeck()">Import Deck</button>
             </div>
         </div>
     </div>
@@ -124,7 +124,7 @@
     <div id="sidebar">
         <div id="custom-picture"></div>
         <button onclick="createDeck()">+ Create Deck</button>
-        <button onclick="createDeck()">+ Import Deck</button>
+        <button onclick="importDeck()">+ Import Deck</button>
     </div>
     <div id="parent-container">
         <div id="navbar">

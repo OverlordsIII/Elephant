@@ -924,6 +924,27 @@ select option:checked {
     background:linear-gradient(150deg, var(--theme-color-1), var(--theme-color-2));
     width:300px;
     height:150px;
+    position:relative;
+}
+
+#import-deck-modal-header > p{
+    position:absolute;
+    right:25px;
+    top:25px;
+    margin:0;
+    filter:invert(var(--image-invert));
+    color:black;
+    background:white;
+    width:30px;
+    height:30px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    border-radius:15px;
+    font-size:15px;
+    cursor:pointer;
 }
 
 #import-deck-modal-body{
@@ -952,6 +973,7 @@ select option:checked {
     font-size:16px;
     font-weight:100;
     cursor:pointer;
+    outline:none;
 }
 
 #import-deck-modal-body > h6{
@@ -975,6 +997,7 @@ select option:checked {
     font-size:16px;
     font-weight:100;
     cursor:pointer;
+    margin-top:25px;
 }
 
 #import-file-upload{

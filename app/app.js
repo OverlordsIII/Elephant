@@ -9,6 +9,8 @@ let cardIndex = 0;
 let createModalActive = false;
 let activeInput = 0;
 
+let uploadedDeck;
+
 let currentOpenDeck;
 let currentVersion = "v0.1.0-alpha-2";
 
@@ -71,6 +73,30 @@ document.getElementById('import-file-trigger').onclick = function(){
     document.getElementById('import-file-upload').click();
 }
 
+document.getElementById('import-file-upload').addEventListener('change', function(e){
+    const fileList = document.getElementById('import-file-upload').files;
+    document.getElementById('import-deck-modal-file').innerHTML = fileList[Object.keys(fileList)[0]].name;
+});
+
+function uploadDeck(){
+    importDeck()
+
+    const reader = new FileReader()
+    reader.onload = handleFileLoad;
+    reader.readAsText(document.getElementById('import-file-upload').files[0])
+}
+
+function handleFileLoad(event) {
+    uploadedDeck = event.target.result;
+
+    const fileList = document.getElementById('import-file-upload').files;
+    let fileName = fileList[Object.keys(fileList)[0]].name
+    fileName = fileName.substring(0, fileName.length - 5)
+
+    localStorage.setItem(fileName, uploadedDeck)
+    loadDecks();
+}
+
 function addDefinition(index, value){
     let newInput = document.createElement('input');
 
@@ -80,7 +106,7 @@ function addDefinition(index, value){
     newInput.id = 'dinput-' + index + "-" + inputDistribution[index - 1];
     newInput.setAttribute("onfocus", "activeInput = " + index);
 
-    if(value != undefined){
+    if(value !== undefined){
         newInput.value = value;
     }
 
@@ -387,7 +413,7 @@ document.addEventListener('keyup', function(e){
 
 window.onload = function(){
     let mainTheme = localStorage.getItem('theme-index');
-    console.log(mainTheme);
+
     try{
         mainTheme = JSON.parse(mainTheme)
     } catch {
