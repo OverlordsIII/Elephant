@@ -237,8 +237,8 @@ function deleteCard(index){
 
     let newDeck = new Deck();
 
-    newDeck.changeDesc(description.value);
-    newDeck.changeImage(img.value);
+    newDeck.desc = description.value;
+    newDeck.image = img.value;
 
     let definitionList = [];
 
