@@ -517,6 +517,8 @@ window.onload = function(){
     try { notifStorage = JSON.parse(notifStorage)}
     catch {notifStorage = new Notifications()}
 
+    if(notifStorage == null) notifStorage = new Notifications()
+
     if(mainTheme[1] === true){
         document.getElementById('dark-mode-input').checked = true;
     }
