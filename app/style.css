@@ -116,14 +116,12 @@ body{
     border-radius:10px;
     margin-right:10px;
     background:linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) 62%, var(--bg-color-2) 62%);
-}
-
-#progress-bar::after{
-    content:'Level 12';
-    font-weight:500;
-    position:absolute;
-    right:275px;
-    top:27px;
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:300;
 }
 
 #logo-div{

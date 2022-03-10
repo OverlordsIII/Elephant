@@ -84,6 +84,7 @@ function setupAnswers(){
     }
 
     if(complete){
+        addLevel(1);
         closeDeck();
         popupModal(0)
         return;

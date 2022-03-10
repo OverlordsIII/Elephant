@@ -96,6 +96,32 @@ const Deck = function(){
     }
 }
 
+function addLevel(amount){
+    let userLevel = localStorage.getItem('level-index');
+    userLevel = parseInt(userLevel);
+
+    userLevel += amount;
+    localStorage.setItem('level-index', userLevel.toString());
+    setupLevel();
+}
+
+function setupLevel(){
+    let userLevel = localStorage.getItem('level-index');
+    let index = 0;
+
+    const progressBar = document.getElementById('progress-bar')
+
+    userLevel = parseInt(userLevel);
+
+    while(2**index <= userLevel){
+        index++;
+    }
+
+    index--;
+    progressBar.innerHTML = "Level " + index;
+    progressBar.style.background = "linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2)" + (100 * (userLevel - 2**index)/2**index) + "%, var(--bg-color-2)" + (100 * (userLevel - 2**index)/2**index) + "%)"
+}
+
 function setupNotifications(){
     let child = document.getElementById('notifications-modal').lastElementChild;
 
@@ -177,6 +203,7 @@ function handleFileLoad(event) {
     fileName = fileName.replaceAll('_', ' ')
     fileName = fileName.substring(0, fileName.length - 6)
 
+    addLevel(2);
     addNotification("add_deck", "Imported New Deck: " + fileName);
 
     localStorage.setItem(fileName, uploadedDeck)
@@ -307,6 +334,7 @@ function saveChanges(){
 
     localStorage.setItem(title, JSON.stringify(newDeck));
 
+    addLevel(1)
     addNotification("create", "Deck Created/Edited: " + title);
 
     document.getElementById('create-modal').classList.add('inactive-modal');
@@ -424,7 +452,7 @@ function loadDecks(sort){
 
         let deck = JSON.parse(localStorage.getItem(localStorage.key(i)));
 
-        if(localStorage.key(i) !== "theme-index" && localStorage.key(i) !== "notifications-storage" && (deck.subject === sort || sort === undefined)) {
+        if(localStorage.key(i) !== "theme-index" && localStorage.key(i) !== "level-index" && localStorage.key(i) !== "notifications-storage" && (deck.subject === sort || sort === undefined)) {
 
             if (deck.version !== currentVersion) {
                 outdated = document.createElement('div');
@@ -507,6 +535,8 @@ document.addEventListener('keyup', function(e){
 window.onload = function(){
     let mainTheme = localStorage.getItem('theme-index');
     let notifStorage = localStorage.getItem('notifications-storage');
+    let userLevel = localStorage.getItem('level-index');
+
 
     try{
         mainTheme = JSON.parse(mainTheme)
@@ -517,7 +547,11 @@ window.onload = function(){
     try { notifStorage = JSON.parse(notifStorage)}
     catch {notifStorage = new Notifications()}
 
+    try { userLevel = parseInt(userLevel)}
+    catch {userLevel = 0}
+
     if(notifStorage == null) notifStorage = new Notifications()
+    if(!userLevel) userLevel = 1;
 
     if(mainTheme[1] === true){
         document.getElementById('dark-mode-input').checked = true;
@@ -525,9 +559,11 @@ window.onload = function(){
 
     localStorage.setItem('theme-index', JSON.stringify(mainTheme));
     localStorage.setItem('notifications-storage', JSON.stringify(notifStorage))
+    localStorage.setItem('level-index', userLevel.toString());
 
     setTheme(mainTheme[0], mainTheme[2]);
     setupNotifications()
+    setupLevel();
 }
 
 loadDecks(undefined);
