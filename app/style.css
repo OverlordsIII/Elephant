@@ -49,6 +49,7 @@ body{
     font-size:1.25em;
     transition-duration:250ms;
     background:var(--theme-color-dark);
+    box-shadow:0 0 10px 0 black;
     color:var(--light-blue);
     border:none;
     outline:none;
@@ -911,6 +912,7 @@ select option:checked {
 
 #import-deck-modal > div{
     background:var(--bg-color-1);
+    box-shadow:0 0 15px 0 black;
     border-radius:15px;
     overflow:hidden;
     display:flex;
@@ -1004,4 +1006,54 @@ select option:checked {
     opacity:0;
     width:0;
     height:0;
+}
+
+#notifications-modal{
+    position:absolute;
+    flex-direction:column;
+    background:var(--bg-color-1);
+    top:70px;
+    right:0;
+    border-radius:0 0 25px 25px;
+    border:1px solid var(--border-color);
+    border-top:none;
+    gap:15px;
+    max-height:200px;
+    overflow-y:scroll;
+    padding: 15px 25px 25px;
+    z-index:2;
+}
+
+#notifications-modal > div{
+    display:flex;
+    flex-direction:row;
+    align-items:center;
+    background:var(--bg-color-2);
+    padding:10px;
+    border-radius:15px;
+}
+
+#notifications-modal > div > img{
+    filter:invert(var(--image-invert));
+    width:20px;
+    height:20px;
+    padding:5px;
+    border-radius:15px;
+}
+
+#notifications-modal > div > div{
+    margin:0 0 0 10px;
+}
+
+#notifications-modal > div > div > p{
+    width:150px;
+    font-size:12px;
+    margin:0;
+}
+
+#notifications-modal > div > div > h6{
+    font-size:10px;
+    color:gray;
+    font-weight:300;
+    margin: 5px 0 0;
 }

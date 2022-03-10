@@ -12,9 +12,36 @@ let activeInput = 0;
 let uploadedDeck;
 
 let currentOpenDeck;
-let currentVersion = "v0.1.0-alpha-2";
+let currentVersion = "v0.1.0-beta";
 
 let controlActive = false;
+
+const Notifications = function(){
+    this.images = [];
+    this.notifs = [];
+    this.dates = [];
+
+    this.push = function(images, notifs, dates){
+        this.images.push(images);
+        this.notifs.push(notifs);
+        this.dates.push(dates);
+    }
+
+    this.deleteOld = function(){
+        let today = new Date();
+
+        for(let i = 0; i < this.dates.length; i++){
+            let difference = (today.getTime - this.dates[i]) / 1000;
+            difference = difference / 2592000;
+
+            if(Math.abs(Math.round(difference)) > 1){
+                delete this.images[i];
+                delete this.notifs[i];
+                delete this.dates[i];
+            }
+        }
+    }
+}
 
 const Deck = function(){
     this.desc = "A New Elephant Deck";
@@ -69,6 +96,45 @@ const Deck = function(){
     }
 }
 
+function setupNotifications(){
+    let child = document.getElementById('notifications-modal').lastElementChild;
+
+    while (child) {
+        document.getElementById('notifications-modal').removeChild(child);
+        child = document.getElementById('notifications-modal').lastElementChild;
+    }
+
+    let notifStorage = localStorage.getItem('notifications-storage');
+    notifStorage = JSON.parse(notifStorage);
+
+    let newNotif = new Notifications();
+    newNotif.images = notifStorage.images;
+    newNotif.notifs = notifStorage.notifs;
+    newNotif.dates = notifStorage.dates;
+
+    for(let i = newNotif.notifs.length - 1; i > -1; i--){
+        let notifDiv = document.createElement('div');
+        let notifImg = document.createElement('img');
+        let notifBody = document.createElement('div');
+        let para = document.createElement('p');
+        let dateH6 = document.createElement('h6');
+
+        notifImg.src = "./icons/" + newNotif.images[i] + ".svg";
+        para.innerHTML = newNotif.notifs[i];
+
+        let newDate = new Date(newNotif.dates[i])
+        const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
+        dateH6.innerHTML = months[newDate.getMonth()] + " " + newDate.getDate() + ", " + newDate.getFullYear();
+
+        notifBody.appendChild(para);
+        notifBody.appendChild(dateH6);
+
+        notifDiv.appendChild(notifImg);
+        notifDiv.appendChild(notifBody);
+        document.getElementById('notifications-modal').appendChild(notifDiv)
+    }
+}
+
 document.getElementById('import-file-trigger').onclick = function(){
     document.getElementById('import-file-upload').click();
 }
@@ -86,14 +152,35 @@ function uploadDeck(){
     reader.readAsText(document.getElementById('import-file-upload').files[0])
 }
 
+function addNotification(image, notif){
+    let today = new Date();
+    let notifStorage = localStorage.getItem('notifications-storage');
+    notifStorage = JSON.parse(notifStorage);
+
+    let newNotif = new Notifications();
+    newNotif.images = notifStorage.images;
+    newNotif.notifs = notifStorage.notifs;
+    newNotif.dates = notifStorage.dates;
+
+    newNotif.push(image, notif, today.getTime());
+
+    localStorage.setItem('notifications-storage', JSON.stringify(newNotif));
+
+    setupNotifications()
+}
+
 function handleFileLoad(event) {
     uploadedDeck = event.target.result;
 
     const fileList = document.getElementById('import-file-upload').files;
-    let fileName = fileList[Object.keys(fileList)[0]].name
-    fileName = fileName.substring(0, fileName.length - 5)
+    let fileName = fileList[Object.keys(fileList)[0]].name;
+    fileName = fileName.replaceAll('_', ' ')
+    fileName = fileName.substring(0, fileName.length - 6)
+
+    addNotification("add_deck", "Imported New Deck: " + fileName);
 
     localStorage.setItem(fileName, uploadedDeck)
+
     loadDecks();
 }
 
@@ -220,6 +307,8 @@ function saveChanges(){
 
     localStorage.setItem(title, JSON.stringify(newDeck));
 
+    addNotification("create", "Deck Created/Edited: " + title);
+
     document.getElementById('create-modal').classList.add('inactive-modal');
     document.getElementById('create-modal').classList.remove('active-modal');
     createModalActive = false;
@@ -267,6 +356,10 @@ function createDeck(){
 }
 
 function deleteDeck(index){
+    let notifStorage = localStorage.getItem('notifications-storage');
+
+    addNotification("delete", "Deleted Deck: " + localStorage.key(index));
+
     localStorage.removeItem(localStorage.key(index))
     loadDecks(undefined);
 }
@@ -331,7 +424,7 @@ function loadDecks(sort){
 
         let deck = JSON.parse(localStorage.getItem(localStorage.key(i)));
 
-        if(localStorage.key(i) !== "theme-index" && (deck.subject === sort || sort === undefined)) {
+        if(localStorage.key(i) !== "theme-index" && localStorage.key(i) !== "notifications-storage" && (deck.subject === sort || sort === undefined)) {
 
             if (deck.version !== currentVersion) {
                 outdated = document.createElement('div');
@@ -413,6 +506,7 @@ document.addEventListener('keyup', function(e){
 
 window.onload = function(){
     let mainTheme = localStorage.getItem('theme-index');
+    let notifStorage = localStorage.getItem('notifications-storage');
 
     try{
         mainTheme = JSON.parse(mainTheme)
@@ -420,13 +514,18 @@ window.onload = function(){
         mainTheme = [0, true, 4]
     }
 
+    try { notifStorage = JSON.parse(notifStorage)}
+    catch {notifStorage = new Notifications()}
+
     if(mainTheme[1] === true){
         document.getElementById('dark-mode-input').checked = true;
     }
 
     localStorage.setItem('theme-index', JSON.stringify(mainTheme));
+    localStorage.setItem('notifications-storage', JSON.stringify(notifStorage))
 
     setTheme(mainTheme[0], mainTheme[2]);
+    setupNotifications()
 }
 
 loadDecks(undefined);

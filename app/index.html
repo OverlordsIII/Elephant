@@ -121,6 +121,15 @@
         </div>
     </div>
     <div id="schedule-modal" class="inactive-modal"></div>
+    <div id="notifications-modal" class="inactive-modal">
+        <div>
+            <img src="./icons/add_deck.svg" alt="dgsf">
+            <div>
+                <p>Imported New Deck: Physics Vectors Scalars</p>
+                <h6>March 3rd, 2021</h6>
+            </div>
+        </div>
+    </div>
     <div id="sidebar">
         <div id="custom-picture"></div>
         <button onclick="createDeck()">+ Create Deck</button>
@@ -140,14 +149,11 @@
                 <!--<div class="navbar-icon-btn">
                     <img src="icons/apps.svg" alt="Bro" id="applications">
                 </div>-->
-                <div class="navbar-icon-btn">
-                    <img src="icons/code.svg" alt="Bro" id="starmap" onclick="window.open('https://trello.com/b/Ha1fXXq2/elephant-starmap')">
+                <div class="navbar-icon-btn" onclick="window.open('https://trello.com/b/Ha1fXXq2/elephant-starmap')">
+                    <img src="icons/code.svg" alt="Bro" id="starmap">
                 </div>
-                <div class="navbar-icon-btn">
-                    <img src="icons/inventory.svg" alt="Bro" id="inventory">
-                </div>
-                <div class="navbar-icon-btn">
-                    <img src="icons/notif.svg" alt="Bro" id="notifs">
+                <div class="navbar-icon-btn" onclick="toggleNotifModal()">
+                    <img src="icons/history.svg" alt="Bro" id="notifs">
                 </div>
                 <div class="navbar-icon-btn" onclick="toggleSettingsModal()">
                     <img src="icons/settings.svg" alt="Bro" id="settings">

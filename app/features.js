@@ -22,6 +22,16 @@ function importDeck(){
     }
 }
 
+function toggleNotifModal(){
+    if(document.getElementById('notifications-modal').classList.contains('active-modal')){
+        document.getElementById('notifications-modal').classList.remove('active-modal');
+        document.getElementById('notifications-modal').classList.add('inactive-modal');
+    } else {
+        document.getElementById('notifications-modal').classList.add('active-modal');
+        document.getElementById('notifications-modal').classList.remove('inactive-modal');
+    }
+}
+
 function popupModal(index){
     //Index Legend: 0 = Flashcard Deck Complete
 
