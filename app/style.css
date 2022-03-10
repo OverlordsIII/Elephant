@@ -969,17 +969,17 @@ select option:checked {
     border:1px solid var(--border-color);
     background:var(--bg-color-2);
     margin-top:15px;
-    color:black;
     font-size:16px;
     font-weight:100;
     cursor:pointer;
     outline:none;
+    color:var(--text-color);
 }
 
 #import-deck-modal-body > h6{
     width:200px;
-    background:#1f1f1f;
-    color:white;
+    background:var(--bg-color-2);
+    color:gray;
     font-weight:300;
     font-size:12px;
     padding:5px 0;
