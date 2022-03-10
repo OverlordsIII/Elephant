@@ -10,6 +10,11 @@ function toggleSettingsModal(){
         document.getElementById('settings-modal').classList.add('active-modal');
         document.getElementById('settings-modal').classList.remove('inactive-modal');
     }
+
+    if(document.getElementById('notifications-modal').classList.contains('active-modal')){
+        document.getElementById('notifications-modal').classList.remove('active-modal');
+        document.getElementById('notifications-modal').classList.add('inactive-modal');
+    }
 }
 
 function importDeck(){
@@ -29,6 +34,11 @@ function toggleNotifModal(){
     } else {
         document.getElementById('notifications-modal').classList.add('active-modal');
         document.getElementById('notifications-modal').classList.remove('inactive-modal');
+    }
+
+    if(document.getElementById('settings-modal').classList.contains('active-modal')){
+        document.getElementById('settings-modal').classList.remove('active-modal');
+        document.getElementById('settings-modal').classList.add('inactive-modal');
     }
 }
 
