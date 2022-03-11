@@ -259,6 +259,12 @@ body{
     background:white;
     border-radius:16px;
     filter:invert(var(--image-invert));
+    opacity:0;
+    transition-duration:250ms;
+}
+
+#main-container > div:hover > img{
+    opacity:1;
 }
 
 #create-modal{
@@ -445,7 +451,7 @@ body{
 #main-create > div > p{
     width:calc(100vw - 850px);
     position:relative;
-    background:var(--theme-color-1);
+    background:linear-gradient(150deg, var(--theme-color-1), var(--theme-color-2));
     border-bottom:1px solid var(--border-color);
     margin:0;
     display:flex;
@@ -506,7 +512,7 @@ body{
 
 #main-create > div > div > div > button{
     width:calc(50vw - 425px);
-    background:var(--theme-color-1);
+    background:linear-gradient(150deg, var(--theme-color-1), var(--theme-color-2));
     outline:none;
     border:none;
     height:25px;

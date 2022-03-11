@@ -315,6 +315,9 @@ function saveChanges(){
     const img = document.querySelector("#create-deck-img");
     const subjectElem = document.getElementById('subject-input');
 
+    
+    if(localStorage.getItem(title) !== null || title === "theme-index" || title === "level-index" || title === "notifications-index") return;
+
     let newDeck = new Deck();
 
     newDeck.desc = description.value;
