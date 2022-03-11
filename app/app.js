@@ -12,7 +12,7 @@ let activeInput = 0;
 let uploadedDeck;
 
 let currentOpenDeck;
-let currentVersion = "v0.1.0-beta";
+let currentVersion = "v0.1.0-beta-1";
 
 let controlActive = false;
 
@@ -58,23 +58,23 @@ const Deck = function(){
         delete this.cards[index]
     }
 
-    this.multipleChoice = function(index){
+    this.multipleChoice = function(index) {
         let randomizedArray = [];
         let correctAnswersIndex = [];
 
         let indexLength = this.cards[index][1].length;
-        
-        for(let i = 0; i < indexLength; i++){
+
+        for (let i = 0; i < indexLength; i++) {
             randomizedArray.push(this.cards[index][1][i])
             correctAnswersIndex.push(this.cards[index][1][i])
         }
 
-        for(let i = 0; i < indexLength + Math.floor(Math.random() * (indexLength + 2)); i++){
+        for (let i = 0; i < indexLength + Math.floor(Math.random() * (indexLength + 2)); i++) {
             let randomInt = Math.floor(Math.random() * this.cards.length)
-            if(randomInt == index) i--
+            if (randomInt == index) i--
             else {
                 let item = this.cards[randomInt][1][Math.floor(Math.random() * this.cards[randomInt][1].length)];
-                if(!randomizedArray.includes(item)) randomizedArray.push(item);
+                if (!randomizedArray.includes(item)) randomizedArray.push(item);
             }
         }
 
@@ -85,8 +85,8 @@ const Deck = function(){
             randomizedArray[j] = temp;
         }
 
-        for(let i = 0; i < randomizedArray.length; i++){
-            if(correctAnswersIndex.includes(randomizedArray[i])){
+        for (let i = 0; i < randomizedArray.length; i++) {
+            if (correctAnswersIndex.includes(randomizedArray[i])) {
                 let tempIndex = correctAnswersIndex.indexOf(randomizedArray[i]);
                 correctAnswersIndex[tempIndex] = i;
             }
@@ -315,7 +315,7 @@ function saveChanges(){
     const img = document.querySelector("#create-deck-img");
     const subjectElem = document.getElementById('subject-input');
 
-    
+
     if(localStorage.getItem(title) !== null || title === "theme-index" || title === "level-index" || title === "notifications-index") return;
 
     let newDeck = new Deck();
@@ -323,7 +323,6 @@ function saveChanges(){
     newDeck.desc = description.value;
     newDeck.image = img.value;
     newDeck.subject = subjectElem.options[subjectElem.selectedIndex].value;
-
 
     let definitionList = [];
 
@@ -421,8 +420,12 @@ function editDeck(index){
 
     document.getElementById('main-create').appendChild(newBtn);
 
-    for(let i = 0; i < object.cards.length; i++){
-        createNewCard(object.cards[i][0], object.cards[i][1])
+    console.log(object);
+
+    for(let i = 0; i < object.cards.length; i++) {
+        try {
+            createNewCard(object.cards[i][0], object.cards[i][1])
+        } catch { console.log("%cNull card detected??", 'color:red;')}
     }
 
     document.getElementById('create-header').innerHTML = "Edit An Existing Deck";
