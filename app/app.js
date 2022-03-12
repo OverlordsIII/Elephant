@@ -556,9 +556,11 @@ window.onload = function(){
     if(notifStorage == null) notifStorage = new Notifications()
     if(!userLevel) userLevel = 1;
 
-    if(mainTheme[1] === true){
-        document.getElementById('dark-mode-input').checked = true;
-    }
+    if(mainTheme !== null){
+        if(mainTheme[1] === true){
+            document.getElementById('dark-mode-input').checked = true;
+        }
+    } else mainTheme = [0, true, 4];
 
     localStorage.setItem('theme-index', JSON.stringify(mainTheme));
     localStorage.setItem('notifications-storage', JSON.stringify(notifStorage))
