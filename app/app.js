@@ -7,6 +7,7 @@ let reviewTerms = [];
 let reviewDefinitions = [];
 let cardIndex = 0;
 let createModalActive = false;
+let editingDeck = false;
 let activeInput = 0;
 
 let uploadedDeck;
@@ -62,6 +63,8 @@ const Deck = function(){
         let randomizedArray = [];
         let correctAnswersIndex = [];
 
+        console.log(index, this.cards);
+
         let indexLength = this.cards[index][1].length;
         
         for(let i = 0; i < indexLength; i++){
@@ -69,12 +72,14 @@ const Deck = function(){
             correctAnswersIndex.push(this.cards[index][1][i])
         }
 
-        for(let i = 0; i < indexLength + Math.floor(Math.random() * (indexLength + 2)); i++){
-            let randomInt = Math.floor(Math.random() * this.cards.length)
-            if(randomInt == index) i--
-            else {
-                let item = this.cards[randomInt][1][Math.floor(Math.random() * this.cards[randomInt][1].length)];
-                if(!randomizedArray.includes(item)) randomizedArray.push(item);
+        if(this.cards.length !== 1){
+            for(let i = 0; i < indexLength + Math.floor(Math.random() * (indexLength + 2)); i++){
+                let randomInt = Math.floor(Math.random() * this.cards.length)
+                if(randomInt == index) i--
+                else {
+                    let item = this.cards[randomInt][1][Math.floor(Math.random() * this.cards[randomInt][1].length)];
+                    if(!randomizedArray.includes(item)) randomizedArray.push(item);
+                }
             }
         }
 
@@ -172,7 +177,7 @@ document.getElementById('import-file-upload').addEventListener('change', functio
 
 function uploadDeck(){
     importDeck()
-
+    
     const reader = new FileReader()
     reader.onload = handleFileLoad;
     reader.readAsText(document.getElementById('import-file-upload').files[0])
@@ -308,15 +313,14 @@ function createNewCard(term, descriptionList){
     if(document.querySelectorAll(".term-input")[cardIndex - 1] != undefined) document.querySelectorAll(".term-input")[cardIndex - 1].scrollIntoView();
 }
 
-function saveChanges(){
+function saveChanges(edit){
     const terms = document.querySelectorAll(".term-input");
     const title = document.querySelector("#create-deck-name").value;
     const description = document.querySelector("#create-deck-desc");
     const img = document.querySelector("#create-deck-img");
     const subjectElem = document.getElementById('subject-input');
 
-    
-    if(localStorage.getItem(title) !== null || title === "theme-index" || title === "level-index" || title === "notifications-index") return;
+    if(editingDeck === false) if(localStorage.getItem(title) !== null || title === "theme-index" || title === "level-index" || title === "notifications-index") return;
 
     let newDeck = new Deck();
 
@@ -348,7 +352,6 @@ function saveChanges(){
 
 function exportData() {
     saveChanges()
-
     let blob = new Blob([localStorage.getItem(document.getElementById('create-deck-name').value)],
         { type: ".edeck;charset=utf-8" });
     saveAs(blob, document.getElementById('create-deck-name').value + ".edeck");
@@ -357,6 +360,7 @@ function exportData() {
 function createDeck(){
     cardIndex = 0;
     inputDistribution = [];
+    editingDeck = false;
     let child = document.getElementById('main-create').lastElementChild;
 
     while (child) {
@@ -397,6 +401,7 @@ function deleteDeck(index){
 
 function editDeck(index){
     let object = JSON.parse(localStorage.getItem(localStorage.key(index)));
+    editingDeck = true;
     currentOpenDeck = index;
     //localStorage.removeItem(localStorage.key(index))
     inputDistribution = [];
