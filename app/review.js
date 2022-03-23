@@ -3,6 +3,8 @@ let correctAnswers = [];
 let progress = 0;
 let reviewDeck;
 
+let hardMode = true;
+
 function setupReview(index){
     reviewCards = [];
     progress = 0;
@@ -71,7 +73,75 @@ function checkAnswer(index){
 function skipQuestion(index){
     progress--;
     setupAnswers();
-    reviewCards[index] = false;
+    if(!hardMode){
+        if(reviewCards[index] === 2){
+            reviewCards[index] = false;
+        } else {
+            reviewCards[index] = 2;
+        }
+    } else {
+        if(reviewCards[index] === true) progress--;
+        reviewCards[index] = false;
+    }
+}
+
+function writtenQuestionCheck(index){
+    let answersGiven = document.querySelectorAll('.flashcard-main-input');
+    let correctAnswersIndex = reviewDeck.writtenAnswers(index);
+    let answersIndexStorage = [];
+
+    let prohibitedChars = ['-', '(', ')', ' '];
+
+    for(let i = 0; i < correctAnswersIndex.length; i++){
+        answersIndexStorage.push(0);
+    }
+
+    for(let i = 0; i < correctAnswersIndex.length; i++){
+        correctAnswersIndex[i] = correctAnswersIndex[i].toLowerCase();
+        for(let i = 0; i < prohibitedChars; i++){
+            correctAnswersIndex[i].replace(prohibitedChars[i], '');
+        }
+    }
+
+    for(let i = 0; i < answersGiven.length; i++){
+        let answerValue = answersGiven[i].value;
+        answerValue = answerValue.toLowerCase();
+
+        for(let i = 0; i < prohibitedChars; i++){
+            answerValue.replace(prohibitedChars[i], '');
+        }
+
+        let indexOfValue = correctAnswersIndex.indexOf(answerValue);
+
+        console.log(indexOfValue, correctAnswersIndex, answersGiven[i].value, answersIndexStorage)
+
+        if(indexOfValue !== -1 && answersIndexStorage[indexOfValue] === 0){
+            answersIndexStorage[indexOfValue] = 1;
+            let targetDiv = document.querySelectorAll('.flashcard-answer-light')[i];
+            targetDiv.classList.remove('right');
+            targetDiv.classList.remove('wrong');
+            targetDiv.classList.add('right');
+        } else if(answersGiven[i].value !== ""){
+            let targetDiv = document.querySelectorAll('.flashcard-answer-light')[i];
+            targetDiv.classList.remove('right');
+            targetDiv.classList.remove('wrong');
+            targetDiv.classList.add('wrong');
+        }
+
+        let complete = true;
+
+        for(let i = 0; i < answersIndexStorage.length; i++){
+            if(answersIndexStorage[i] === 0) complete = false;
+        }
+
+        if(complete) {
+            setupAnswers();
+            let sound = new Audio('./sounds/right.wav')
+            sound.play();
+            return;
+        }
+    }
+
 }
 
 function setupAnswers(){
@@ -102,37 +172,65 @@ function setupAnswers(){
     }
 
     const progressBar = document.getElementById('review-progress');
-    progressBar.innerHTML = progress + "/" + reviewCards.length + " Flashcards";
-    progressBar.style.background = "linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) " + 100 * progress / reviewCards.length + "%, var(--bg-color-1) " + 100 * progress / reviewCards.length + "%)";
+    progressBar.innerHTML = progress + "/" + reviewCards.length * 2 + " Flashcards";
+    progressBar.style.background = "linear-gradient(135deg, var(--theme-color-1) 0%, var(--theme-color-2) " + 100 * progress / (reviewCards.length * 2) + "%, var(--bg-color-1) " + 100 * progress / (reviewCards.length * 2) + "%)";
 
     while(randomCard === undefined){
         randomCard = Math.floor(Math.random() * reviewCards.length);
         if(reviewCards[randomCard] === true) randomCard = undefined;
     }
 
-    reviewCards[randomCard] = true;
+    if(reviewCards[randomCard] === false) reviewCards[randomCard] = 2;
+    else reviewCards[randomCard] = true;
 
-    let questionsRandomized = reviewDeck.multipleChoice(randomCard)
-    let definitionsArray = questionsRandomized[0];
-    correctAnswers = questionsRandomized[1];
+    if(reviewCards[randomCard] === 2){
+        let questionsRandomized = reviewDeck.multipleChoice(randomCard)
+        let definitionsArray = questionsRandomized[0];
+        correctAnswers = questionsRandomized[1];
 
-    document.getElementById('flashcard-header-text').innerHTML = reviewDeck.cards[randomCard][0];
+        document.getElementById('flashcard-header-text').innerHTML = reviewDeck.cards[randomCard][0];
 
-    for(let i = 0; i < definitionsArray.length; i++){
-        let newDiv = document.createElement('div');
-        let newBtn = document.createElement('button');
+        for(let i = 0; i < definitionsArray.length; i++){
+            let newDiv = document.createElement('div');
+            let newBtn = document.createElement('button');
 
-        newBtn.setAttribute('onclick', "checkAnswer(" + i + ")")
-        newBtn.innerHTML = definitionsArray[i];
-        newDiv.appendChild(newBtn);
-        newDiv.classList.add('flashcard-def-btn')
-        document.getElementById('flashcard-answers').appendChild(newDiv);
+            newBtn.setAttribute('onclick', "checkAnswer(" + i + ")")
+            newBtn.innerHTML = definitionsArray[i];
+            newDiv.appendChild(newBtn);
+            newDiv.classList.add('flashcard-def-btn')
+            document.getElementById('flashcard-answers').appendChild(newDiv);
+        }
+
+        let skipBtn = document.createElement('button');
+        skipBtn.innerHTML = "Skip Question";
+        skipBtn.id = "skip-question-btn";
+        skipBtn.setAttribute('onclick', "skipQuestion(" + randomCard + ")");
+
+        document.getElementById('flashcard-answers').appendChild(skipBtn);
+    } else {
+        let correctAnswersIndex = reviewDeck.writtenAnswers(randomCard);
+
+        document.getElementById('flashcard-header-text').innerHTML = reviewDeck.cards[randomCard][0];
+
+        for(let i = 0; i < correctAnswersIndex.length; i++){
+            let newDiv = document.createElement('div');
+            let newInput = document.createElement('input');
+            let answerDiv = document.createElement('div');
+
+            newInput.setAttribute('onchange', "writtenQuestionCheck(" + randomCard + ")")
+            newInput.placeholder = "Type Answer Here";
+            newInput.classList.add('flashcard-main-input');
+            answerDiv.classList.add('flashcard-answer-light');
+            newDiv.appendChild(newInput);
+            newDiv.appendChild(answerDiv);
+            document.getElementById('flashcard-answers').appendChild(newDiv);
+        }
+
+        let skipBtn = document.createElement('button');
+        skipBtn.innerHTML = "Skip Question";
+        skipBtn.id = "skip-question-btn";
+        skipBtn.setAttribute('onclick', "skipQuestion(" + randomCard + ")");
+
+        document.getElementById('flashcard-answers').appendChild(skipBtn);
     }
-
-    let skipBtn = document.createElement('button');
-    skipBtn.innerHTML = "Skip Question";
-    skipBtn.id = "skip-question-btn";
-    skipBtn.setAttribute('onclick', "skipQuestion(" + randomCard + ")");
-
-    document.getElementById('flashcard-answers').appendChild(skipBtn);
 }

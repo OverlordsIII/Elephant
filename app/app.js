@@ -99,6 +99,16 @@ const Deck = function(){
 
         return [randomizedArray, correctAnswersIndex];
     }
+
+    this.writtenAnswers = function(index){
+        let correctAnswers = []
+
+        for(let i = 0; i < this.cards[index][1].length; i++){
+            correctAnswers.push(this.cards[index][1][i])
+        }
+
+        return correctAnswers;
+    }
 }
 
 let dropArea = document.getElementById('upload-deck-img-div');
