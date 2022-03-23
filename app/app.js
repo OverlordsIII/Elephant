@@ -13,7 +13,7 @@ let activeInput = 0;
 let uploadedDeck;
 
 let currentOpenDeck;
-let currentVersion = "v0.1.0-beta";
+let currentVersion = "v0.1.1-beta";
 
 let controlActive = false;
 
@@ -66,7 +66,7 @@ const Deck = function(){
         console.log(index, this.cards);
 
         let indexLength = this.cards[index][1].length;
-        
+
         for(let i = 0; i < indexLength; i++){
             randomizedArray.push(this.cards[index][1][i])
             correctAnswersIndex.push(this.cards[index][1][i])
@@ -75,7 +75,7 @@ const Deck = function(){
         if(this.cards.length !== 1){
             for(let i = 0; i < indexLength + Math.floor(Math.random() * (indexLength + 2)); i++){
                 let randomInt = Math.floor(Math.random() * this.cards.length)
-                if(randomInt == index) i--
+                if(randomInt === index) i--
                 else {
                     let item = this.cards[randomInt][1][Math.floor(Math.random() * this.cards[randomInt][1].length)];
                     if(!randomizedArray.includes(item)) randomizedArray.push(item);
@@ -100,6 +100,66 @@ const Deck = function(){
         return [randomizedArray, correctAnswersIndex];
     }
 }
+
+let dropArea = document.getElementById('upload-deck-img-div');
+let imageInput = document.createElement('input');
+let imageInputImage = document.createElement('img');
+
+dropArea.addEventListener('dragenter', function(e){
+    e.preventDefault()
+    e.stopPropagation()
+    dropArea.style.border = "3px dashed var(--theme-color-1)";
+})
+
+dropArea.addEventListener('dragleave', function(e){
+    e.preventDefault()
+    e.stopPropagation()
+    dropArea.style.border = "3px dashed var(--border-color)";
+})
+
+dropArea.addEventListener('click', function(e){
+    e.preventDefault()
+    e.stopPropagation()
+
+    imageInput.type = "file";
+    imageInput.accept = "image/*";
+
+    imageInput.click();
+});
+
+imageInput.onchange = function(e){
+    imageInputImage.src = URL.createObjectURL(e.target.files[0]);
+    let newCanvas = document.createElement("canvas");
+    let newCTX = newCanvas.getContext('2d');
+
+    newCanvas.width = imageInputImage.width;
+    newCanvas.height = imageInputImage.height;
+
+    newCTX.drawImage(imageInputImage, 0, 0, imageInputImage.width, imageInputImage.height)
+
+    let imageAsDataURL = newCanvas.toDataURL('image/png');
+    let imageIndexes = localStorage.getItem('image-indexes')
+
+    imageIndexes = JSON.parse(imageIndexes)
+    imageIndexes = [];
+
+    console.log(imageIndexes)
+    imageIndexes.push(imageAsDataURL)
+    console.log(imageIndexes)
+
+    console.log(imageInputImage)
+}
+
+dropArea.addEventListener('drop', function(e){
+    e.preventDefault()
+    e.stopPropagation()
+
+    let dt = e.dataTransfer;
+    let files = dt.files;
+
+    let imgData = getBase64Image(files);
+    console.log(imgData);
+}, false)
 
 function addLevel(amount){
     let userLevel = localStorage.getItem('level-index');
@@ -177,7 +237,7 @@ document.getElementById('import-file-upload').addEventListener('change', functio
 
 function uploadDeck(){
     importDeck()
-    
+
     const reader = new FileReader()
     reader.onload = handleFileLoad;
     reader.readAsText(document.getElementById('import-file-upload').files[0])
@@ -310,22 +370,34 @@ function createNewCard(term, descriptionList){
     }
 
     termInput.focus();
-    if(document.querySelectorAll(".term-input")[cardIndex - 1] != undefined) document.querySelectorAll(".term-input")[cardIndex - 1].scrollIntoView();
+    if(document.querySelectorAll(".term-input")[cardIndex - 1] !== undefined) document.querySelectorAll(".term-input")[cardIndex - 1].scrollIntoView();
 }
 
 function saveChanges(edit){
     const terms = document.querySelectorAll(".term-input");
-    const title = document.querySelector("#create-deck-name").value;
+    let title = document.querySelector("#create-deck-name").value;
     const description = document.querySelector("#create-deck-desc");
     const img = document.querySelector("#create-deck-img");
     const subjectElem = document.getElementById('subject-input');
 
-    if(editingDeck === false) if(localStorage.getItem(title) !== null || title === "theme-index" || title === "level-index" || title === "notifications-index") return;
+    const prohibitedTitles = ["theme-index", "notifications-storage", "level-index", "image-indexes"]
+
+    if(editingDeck === false) if(localStorage.getItem(title) !== null || prohibitedTitles.includes(title) || !title) {
+        let newTitleIndex = 0;
+        let titleTaken = true;
+
+        while(titleTaken){
+            newTitleIndex++;
+            if(!localStorage.getItem("Untitled-" + newTitleIndex)) titleTaken = false;
+        }
+
+        title = "Untitled-" + newTitleIndex;
+    }
 
     let newDeck = new Deck();
 
     newDeck.desc = description.value;
-    newDeck.image = img.value;
+    newDeck.image = JSON.stringify(imageInputImage);
     newDeck.subject = subjectElem.options[subjectElem.selectedIndex].value;
 
 
@@ -340,6 +412,9 @@ function saveChanges(edit){
     }
 
     localStorage.setItem(title, JSON.stringify(newDeck));
+
+    let sound = new Audio('./sounds/right.wav')
+    sound.play();
 
     addLevel(1)
     addNotification("create", "Deck Created/Edited: " + title);
@@ -396,6 +471,10 @@ function deleteDeck(index){
     addNotification("delete", "Deleted Deck: " + localStorage.key(index));
 
     localStorage.removeItem(localStorage.key(index))
+
+    let sound = new Audio('./sounds/wrong.wav')
+    sound.play();
+
     loadDecks(undefined);
 }
 
@@ -439,6 +518,7 @@ function editDeck(index){
 
 function loadDecks(sort){
     let child = document.getElementById('main-container').lastElementChild;
+    const prohibitedTitles = ["theme-index", "notifications-storage", "level-index", "image-indexes"]
 
     while (child) {
         document.getElementById('main-container').removeChild(child);
@@ -456,11 +536,12 @@ function loadDecks(sort){
         let button = document.createElement('button');
         let edit = document.createElement('button');
         let deleteItem = document.createElement('img');
+        let printItem = document.createElement('img')
         let outdated;
 
         let deck = JSON.parse(localStorage.getItem(localStorage.key(i)));
 
-        if(localStorage.key(i) !== "theme-index" && localStorage.key(i) !== "level-index" && localStorage.key(i) !== "notifications-storage" && (deck.subject === sort || sort === undefined)) {
+        if(!prohibitedTitles.includes(localStorage.key(i)) && (deck.subject === sort || sort === undefined)) {
 
             if (deck.version !== currentVersion) {
                 outdated = document.createElement('div');
@@ -472,11 +553,20 @@ function loadDecks(sort){
             subject.src = "./icons/subjects/" + deck.subject + ".svg";
             para.innerHTML = deck.desc;
 
+            try{deck.image = JSON.parse(deck.image)}
+            catch{console.log(deck.image)}
+
             if (deck.image === '') {
                 let randomColor = colorRange[Math.floor(Math.random() * colorRange.length)];
                 imageDiv.style.background = "linear-gradient(135deg, " + randomColor[0] + ", " + randomColor[1] + ")";
             } else {
-                imageDiv.style.backgroundImage = "url('" + deck.image + "')";
+                try{
+                    imageDiv.style.backgroundImage = "url('" + URL.createObjectURL(deck.image) + "')";
+                } catch {
+                    let randomColor = colorRange[Math.floor(Math.random() * colorRange.length)];
+                    imageDiv.style.background = "linear-gradient(135deg, " + randomColor[0] + ", " + randomColor[1] + ")";
+                    console.log(deck.image)
+                }
             }
 
             button.innerHTML = "Open Deck"
@@ -485,6 +575,8 @@ function loadDecks(sort){
             edit.setAttribute('onclick', "editDeck(" + i + ")");
             deleteItem.src = "icons/delete.svg";
             deleteItem.setAttribute("onclick", "deleteDeck(" + i + ")")
+            printItem.src = "icons/print.svg";
+            printItem.setAttribute("onclick", "printDeck(" + i + ")")
 
             subjectDiv.appendChild(subject);
 
@@ -499,6 +591,7 @@ function loadDecks(sort){
             newDiv.appendChild(textDiv);
 
             newDiv.appendChild(deleteItem);
+            //newDiv.appendChild(printItem);
 
             document.getElementById('main-container').appendChild(newDiv);
         }
@@ -544,7 +637,7 @@ window.onload = function(){
     let mainTheme = localStorage.getItem('theme-index');
     let notifStorage = localStorage.getItem('notifications-storage');
     let userLevel = localStorage.getItem('level-index');
-
+    let userImages = localStorage.getItem('image-indexes')
 
     try{
         mainTheme = JSON.parse(mainTheme)
@@ -558,6 +651,8 @@ window.onload = function(){
     try { userLevel = parseInt(userLevel)}
     catch {userLevel = 0}
 
+    if(!userImages){userImages = []}
+
     if(notifStorage == null) notifStorage = new Notifications()
     if(!userLevel) userLevel = 1;
 
@@ -570,10 +665,32 @@ window.onload = function(){
     localStorage.setItem('theme-index', JSON.stringify(mainTheme));
     localStorage.setItem('notifications-storage', JSON.stringify(notifStorage))
     localStorage.setItem('level-index', userLevel.toString());
+    localStorage.setItem('image-indexes', JSON.stringify(userImages));
 
     setTheme(mainTheme[0], mainTheme[2]);
     setupNotifications()
     setupLevel();
+}
+
+function printDeck(index){
+    let targetDeck = localStorage.getItem(localStorage.key(index));
+    let doc = new jsPDF();
+
+    targetDeck = JSON.parse(targetDeck);
+
+    doc.setFont('Merriweather', "normal" , 900)
+    doc.setFontSize(100);
+    doc.text(doc.splitTextToSize(localStorage.key(index).toUpperCase(), 200), 10, 150);
+    doc.setFont('Helvetica', "normal", 500);
+    doc.setFontSize(20);
+    doc.text(doc.splitTextToSize(targetDeck.desc, 200), 10, 175)
+    doc.addPage();
+
+    for(let i = 0; i < targetDeck.cards.length; i++){
+        doc.text("RAtio L BOZO", 10, 25*i);
+    }
+
+    doc.save(localStorage.key(index) + '.pdf');
 }
 
 loadDecks(undefined);

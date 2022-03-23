@@ -10,10 +10,17 @@ function setupReview(index){
     const object = JSON.parse(localStorage.getItem(localStorage.key(index)));
     reviewDeck = new Deck();
 
+    let sound = new Audio('./sounds/intro.wav')
+
     if(object.version !== currentVersion) {
         closeDeck();
-        throw new Error('Please update current Deck');
+        sound = new Audio('./sounds/wrong.wav')
+        sound.play();
+        addNotification("warning", "Error Opening Deck: " + localStorage.key(index));
+        return;
     }
+
+    sound.play()
 
     reviewDeck.cards = object.cards;
 
@@ -35,8 +42,12 @@ function checkAnswer(index){
     if(correctAnswers.includes(index)){
         correctAnswers[correctAnswers.indexOf(index)] = true;
         answerDiv.classList.add('right');
+        let sound = new Audio('./sounds/right.wav')
+        sound.play();
     } else {
         answerDiv.classList.add('wrong');
+        let sound = new Audio('./sounds/wrong.wav')
+        sound.play();
     }
 
     let complete = true;

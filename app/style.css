@@ -251,7 +251,6 @@ body{
 
 #main-container > div > img{
     position:absolute;
-    top:10px;
     right:10px;
     width:24px;
     padding:4px;
@@ -261,6 +260,14 @@ body{
     filter:invert(var(--image-invert));
     opacity:0;
     transition-duration:250ms;
+}
+
+#main-container > div > img:nth-of-type(1){
+    top:10px;
+}
+
+#main-container > div > img:nth-of-type(2){
+    top:50px;
 }
 
 #main-container > div:hover > img{
@@ -330,15 +337,69 @@ body{
 }
 
 #card-information input{
+    width: 230px;
+    color: gray;
+    outline: none;
+    border: none;
+    margin: 10px 0;
+    background: var(--bg-color-2);
+    font-size: 1.25em;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+#create-deck-img{
+    margin: 10px 0;
     width:230px;
-    color:gray;
-    outline:none;
-    border:none;
-    margin:10px 0;
-    background:var(--bg-color-2);
-    font-size:1.25em;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
     padding:10px;
     border-radius:5px;
+    font-size:12px;
+    background:var(--bg-color-2);
+    transition-duration:1s;
+}
+
+#create-deck-img > h1{
+    color:var(--text-color);
+    font-weight:200;
+    margin:0;
+}
+
+#create-deck-img > div{
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    height:50px;
+    width:230px;
+    margin-top:10px;
+    background:var(--bg-color-1);
+    border-radius:10px;
+    border:3px dashed var(--border-color);
+    cursor:pointer;
+}
+
+#create-deck-img > div > img{
+    width:25px;
+}
+
+#create-deck-img-input{
+    display:none;
+}
+
+#create-deck-img > div > h1{
+    font-size:12px;
+    color:var(--text-color);
+    font-weight:500;
+}
+
+#create-deck-img > p{
+    margin:0;
+    font-weight:200;
 }
 
 #card-information textarea{
@@ -467,7 +528,6 @@ body{
     right:5px;
     height:16px;
     padding:2px;
-    top:5px;
     display:flex;
     flex-direction:row;
     align-items:center;

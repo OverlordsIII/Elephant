@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="style.css">
 
     <script src="dependencies/FileSaver.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script>
 
     <script src="app.js" defer></script>
     <script src="features.js" defer></script>
@@ -100,7 +101,6 @@
                 <h1>Deck Information</h1>
                 <input type="text" placeholder="Deck Name" id="create-deck-name">
                 <textarea name="" cols="30" rows="10" placeholder="Description" id="create-deck-desc"></textarea>
-                <input type="text" placeholder="Deck Image" id="create-deck-img">
                 <select id="subject-input">
                     <option value="history">History</option>
                     <option value="language">English</option>
@@ -114,6 +114,15 @@
                     <option value="other">Other</option>
                     <option value="disabled" selected disabled hidden>Please Select a Subject</option>
                 </select>
+                <div id="create-deck-img">
+                    <h1>Upload Deck Image</h1>
+                    <p>PNG, JPG, and GIF files are allowed</p>
+                    <div id="upload-deck-img-div">
+                        <img src="./icons/upload.svg" alt="">
+                        <h1>Drop Your Image Here or <span style="color:var(--theme-color-1)">Browse</span></h1>
+                    </div>
+                    <input type="file" id="create-deck-img-input">
+                </div>
                 <button id="save-card" onclick="saveChanges()">Save Changes</button>
                 <button id="export-card" onclick="exportData()">Export Deck</button>
                 <button id="cancel-card" onclick="closeCreateModal()">Cancel Changes</button>
@@ -146,8 +155,8 @@
             </div>
             <div id="navbar-right">
                 <div id="progress-bar"></div>
-                <!--<div class="navbar-icon-btn">
-                    <img src="icons/apps.svg" alt="Bro" id="applications">
+                <!--<div class="navbar-icon-btn" onclick="window.open('https://discord.gg/YbZS8H6RbB')">
+                    <img src="icons/discord.webp" alt="Bro" id="discord">
                 </div>-->
                 <div class="navbar-icon-btn" onclick="window.open('https://trello.com/b/Ha1fXXq2/elephant-starmap')">
                     <img src="icons/code.svg" alt="Bro" id="starmap">
