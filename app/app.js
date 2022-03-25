@@ -527,15 +527,28 @@ function editDeck(index){
     createModalActive = true;
 }
 
-function checkSort(){
+function checkSort(clear){
     let titleSort = document.getElementById('sort-title-input').value;
     let subjectSort = document.getElementById('sort-subject-input').value;
+    let clearSorts = document.getElementById("clear-sorts-btn");
 
-    if(titleSort === "") titleSort = undefined;
-    else titleSort = titleSort.toLowerCase()
+    if(clear){
+        clearSorts.classList.remove("active-button");
+        clearSorts.classList.add("inactive-button");
+
+        titleSort = undefined;
+        subjectSort = undefined;
+
+        console.log("fe", clearSorts.classList)
+    } else {
+        if(titleSort === "") titleSort = undefined;
+        else titleSort = titleSort.toLowerCase()
 
 
-    if(subjectSort === "disabled") subjectSort = undefined;
+        if(subjectSort === "disabled") subjectSort = undefined;
+        clearSorts.classList.add("active-button");
+        clearSorts.classList.remove("inactive-button");
+    }
 
     loadDecks(subjectSort, titleSort);
 }
@@ -728,5 +741,5 @@ function printDeck(index){
     doc.save(localStorage.key(index) + '.pdf');
 }
 
-loadDecks(undefined, undefined);
+checkSort(true);
 console.log("Thank you for choosing %cElephant%c... also why are you looking in the console??", "color:#405DE6")

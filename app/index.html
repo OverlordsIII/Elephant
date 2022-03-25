@@ -170,8 +170,8 @@
             </div>
         </div>
         <div id="sort-div">
-            <input type="text" onchange="checkSort()" id="sort-title-input" placeholder="Sort By Title">
-            <select id="sort-subject-input" onchange="checkSort()">
+            <input type="text" onchange="checkSort(false)" id="sort-title-input" placeholder="Sort By Title">
+            <select id="sort-subject-input" onchange="checkSort(false)">
                 <option value="history">History</option>
                 <option value="language">English</option>
                 <option value="math">Mathematics</option>
@@ -184,6 +184,7 @@
                 <option value="other">Other</option>
                 <option value="disabled" selected disabled hidden>Sort By Subject</option>
             </select>
+            <button id="clear-sorts-btn" class="" onclick="checkSort(true)">Clear Sorts</button>
         </div>
         <div id="main-container"></div>
     </div>
