@@ -110,12 +110,14 @@ function setTheme(themeIndex, background){
 function openDeck(index){
     document.getElementById('review-modal').classList.add('active-modal');
     document.getElementById('review-modal').classList.remove('inactive-modal');
+    reviewModalActive = true;
     setupReview(index)
 }
 
 function closeDeck(){
     document.getElementById('review-modal').classList.remove('active-modal');
     document.getElementById('review-modal').classList.add('inactive-modal');
+    reviewModalActive = false;
 }
 
 function closeCreateModal(){

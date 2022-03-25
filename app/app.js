@@ -7,6 +7,7 @@ let reviewTerms = [];
 let reviewDefinitions = [];
 let cardIndex = 0;
 let createModalActive = false;
+let reviewModalActive = false;
 let editingDeck = false;
 let activeInput = 0;
 
@@ -283,7 +284,7 @@ function handleFileLoad(event) {
 
     localStorage.setItem(fileName, uploadedDeck)
 
-    loadDecks();
+    loadDecks(undefined, undefined);
 }
 
 function addDefinition(index, value){
@@ -432,7 +433,7 @@ function saveChanges(edit){
     document.getElementById('create-modal').classList.add('inactive-modal');
     document.getElementById('create-modal').classList.remove('active-modal');
     createModalActive = false;
-    loadDecks(undefined);
+    loadDecks(undefined, undefined);
 }
 
 function exportData() {
@@ -485,7 +486,7 @@ function deleteDeck(index){
     let sound = new Audio('./sounds/wrong.wav')
     sound.play();
 
-    loadDecks(undefined);
+    loadDecks(undefined, undefined);
 }
 
 function editDeck(index){
@@ -526,7 +527,20 @@ function editDeck(index){
     createModalActive = true;
 }
 
-function loadDecks(sort){
+function checkSort(){
+    let titleSort = document.getElementById('sort-title-input').value;
+    let subjectSort = document.getElementById('sort-subject-input').value;
+
+    if(titleSort === "") titleSort = undefined;
+    else titleSort = titleSort.toLowerCase()
+
+
+    if(subjectSort === "disabled") subjectSort = undefined;
+
+    loadDecks(subjectSort, titleSort);
+}
+
+function loadDecks(sort, title){
     let child = document.getElementById('main-container').lastElementChild;
     const prohibitedTitles = ["theme-index", "notifications-storage", "level-index", "image-indexes"]
 
@@ -534,6 +548,9 @@ function loadDecks(sort){
         document.getElementById('main-container').removeChild(child);
         child = document.getElementById('main-container').lastElementChild;
     }
+
+    if(!title) document.getElementById('sort-title-input').value = "";
+    if(!sort) document.getElementById('sort-subject-input').value = "disabled"
 
     for(let i = 0; i < localStorage.length; i++){
         let newDiv = document.createElement('div');
@@ -551,7 +568,7 @@ function loadDecks(sort){
 
         let deck = JSON.parse(localStorage.getItem(localStorage.key(i)));
 
-        if(!prohibitedTitles.includes(localStorage.key(i)) && (deck.subject === sort || sort === undefined)) {
+        if(!prohibitedTitles.includes(localStorage.key(i)) && (deck.subject === sort || sort === undefined) && (localStorage.key(i).toLowerCase().includes(title) || title === undefined)) {
 
             if (deck.version !== currentVersion) {
                 outdated = document.createElement('div');
@@ -575,7 +592,6 @@ function loadDecks(sort){
                 } catch {
                     let randomColor = colorRange[Math.floor(Math.random() * colorRange.length)];
                     imageDiv.style.background = "linear-gradient(135deg, " + randomColor[0] + ", " + randomColor[1] + ")";
-                    console.log(deck.image)
                 }
             }
 
@@ -627,10 +643,19 @@ document.addEventListener('keydown', function(e){
             e.stopPropagation();
             addDefinition(activeInput);
         }
-    } else if(e.keyCode === 78 && document.getElementById('review-modal').classList.contains('inactive-modal')){
+    } else if(e.keyCode === 78 && !reviewModalActive){
         createDeck();
-    } else if(document.getElementById('review-modal').classList.contains('active-modal')){
+    } else if(reviewModalActive){
         if(e.keyCode === 27) closeDeck();
+        if(e.keyCode === 49 || e.keyCode === 35) checkAnswer(0);
+        if(e.keyCode === 50 || e.keyCode === 40) checkAnswer(1);
+        if(e.keyCode === 51 || e.keyCode === 34) checkAnswer(2);
+        if(e.keyCode === 52 || e.keyCode === 37) checkAnswer(3);
+        if(e.keyCode === 53 || e.keyCode === 12) checkAnswer(4);
+        if(e.keyCode === 54 || e.keyCode === 39) checkAnswer(5);
+        if(e.keyCode === 55 || e.keyCode === 36) checkAnswer(6);
+        if(e.keyCode === 56 || e.keyCode === 38) checkAnswer(7);
+        if(e.keyCode === 57 || e.keyCode === 33) checkAnswer(8);
     }
 
     if(e.keyCode === 17) controlActive = true;
@@ -703,5 +728,5 @@ function printDeck(index){
     doc.save(localStorage.key(index) + '.pdf');
 }
 
-loadDecks(undefined);
+loadDecks(undefined, undefined);
 console.log("Thank you for choosing %cElephant%c... also why are you looking in the console??", "color:#405DE6")

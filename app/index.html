@@ -169,6 +169,22 @@
                 </div>
             </div>
         </div>
+        <div id="sort-div">
+            <input type="text" onchange="checkSort()" id="sort-title-input" placeholder="Sort By Title">
+            <select id="sort-subject-input" onchange="checkSort()">
+                <option value="history">History</option>
+                <option value="language">English</option>
+                <option value="math">Mathematics</option>
+                <option value="science">Science</option>
+                <option value="money">Finance</option>
+                <option value="foreign">World Language</option>
+                <option value="sports">Sports</option>
+                <option value="work">Work/Job</option>
+                <option value="music">Music and Instruments</option>
+                <option value="other">Other</option>
+                <option value="disabled" selected disabled hidden>Sort By Subject</option>
+            </select>
+        </div>
         <div id="main-container"></div>
     </div>
 </body>

@@ -195,6 +195,7 @@ function setupAnswers(){
             let newBtn = document.createElement('button');
 
             newBtn.setAttribute('onclick', "checkAnswer(" + i + ")")
+            newBtn.classList.add("flashcard-btn-" + i);
             newBtn.innerHTML = definitionsArray[i];
             newDiv.appendChild(newBtn);
             newDiv.classList.add('flashcard-def-btn')
@@ -212,8 +213,6 @@ function setupAnswers(){
 
         document.getElementById('flashcard-header-text').innerHTML = reviewDeck.cards[randomCard][0];
 
-        let first = true;
-
         for(let i = 0; i < correctAnswersIndex.length; i++){
             let newDiv = document.createElement('div');
             let newInput = document.createElement('input');
@@ -224,15 +223,13 @@ function setupAnswers(){
             newInput.classList.add('flashcard-main-input');
             answerDiv.classList.add('flashcard-answer-light');
 
-            if(first) newInput.classList.add("flashcard-input-first");
+            if(i === 0) newInput.classList.add("flashcard-input-first");
 
             newDiv.appendChild(newInput);
             newDiv.appendChild(answerDiv);
             document.getElementById('flashcard-answers').appendChild(newDiv);
 
             document.querySelector('.flashcard-input-first').focus();
-
-            first = false;
         }
 
         let skipBtn = document.createElement('button');

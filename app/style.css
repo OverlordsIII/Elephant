@@ -150,7 +150,7 @@ body{
 #main-container{
     background:var(--bg-color-2);
     width:calc(100vw - 300px);
-    height:calc(100vh - 120px);
+    height:calc(100vh - 180px);
     padding:25px;
     display:flex;
     flex-direction:row;
@@ -1122,4 +1122,30 @@ select option:checked {
     color:gray;
     font-weight:300;
     margin: 5px 0 0;
+}
+
+#sort-div{
+    height:50px;
+    background:var(--bg-color-2);
+    /*border-bottom:1px solid var(--border-color);*/
+    width:calc(100vw - 300px);
+    padding:0 25px;
+    display:flex;
+    flex-direction:row;
+    align-items:flex-end;
+    justify-content:flex-start;
+    gap:15px;
+}
+
+#sort-div > input, #sort-div > select{
+    width:250px;
+    height:25px;
+    background:var(--bg-color-1);
+    border:1px solid var(--border-color);
+    border-radius:15px;
+    padding:0 10px;
+    outline:none;
+    color:gray;
+    font-size:14px;
+    font-weight:300;
 }
