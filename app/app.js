@@ -1,6 +1,6 @@
 const cardDiv = document.querySelector("#main-create");
 const colorRange = [["#405DE6", "#833AB4", "#354382"], ["#833AB4", "#E1306C", "#664180"], ["#F56040", "#FCAF45", "#b55641"]];
-const bgRange = [["#ffffff", "#f6f7fb"], ["#191919", "#1f1f1f"]];
+const bgRange = [["#ffffff", "#f6f7fb"], ["#101111", "#18191a"]];
 
 let inputDistribution = [];
 let reviewTerms = [];
